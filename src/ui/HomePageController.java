@@ -24,11 +24,67 @@ public class HomePageController extends SceneController {
     @FXML
     private Button familyButton;
 
+    @FXML
+    private Button viewStorageButton;
+
+    @FXML
+    private Button addFoodButton;
+
+    @FXML
+    private Button addSeasoningButton;
+
+    @FXML
+    private Button removeFoodButton;
+
+    @FXML
+    private Button removeSeasoningButton;
+
+    @FXML
+    private Button expiringFoodButton;
+
+    @FXML
+    private Button fooxdInfoButton;
+
     public void init() {}
 
     @FXML
+    public void viewStorageButtonPressed(ActionEvent event) {
+        System.out.println("view");
+    }
+
+    @FXML
+    public void addFoodButtonPressed(ActionEvent event) {
+        System.out.println("add food");
+    }
+
+    @FXML
+    public void addSeasoningButtonPressed(ActionEvent event) {
+        System.out.println("add seasoning");
+    }
+
+    @FXML
+    public void removeFoodButtonPressed(ActionEvent event) {
+        System.out.println("remove food");
+    }
+
+    @FXML
+    public void removeSeasoningButtonPressed(ActionEvent event) {
+        System.out.println("remove seasoning");
+    }
+
+    @FXML
+    public void expiringFoodButtonPressed(ActionEvent event) {
+        System.out.println("expiring");
+    }
+
+    @FXML
+    public void foodInfoButtonPressed(ActionEvent event) {
+        System.out.println("info");
+    }
+
+    @FXML
     public void homeButtonPressed(ActionEvent event) {
-        switchScene("home", event);
+        //nothing
     }
 
     @FXML

@@ -29,5 +29,40 @@
                 <Font size="64.0" />
             </font>
         </Label>
+      <Button fx:id="viewStorageButton" layoutX="30.0" layoutY="100.0" mnemonicParsing="false" onAction="#viewStorageButtonPressed" text="View storage">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="addFoodButton" layoutX="30.0" layoutY="150.0" mnemonicParsing="false" onAction="#addFoodButtonPressed" text="Add food to storage">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="addSeasoningButton" layoutX="30.0" layoutY="200.0" mnemonicParsing="false" onAction="#addSeasoningButtonPressed" text="Add seasoning to storage">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeFoodButton" layoutX="30.0" layoutY="250.0" mnemonicParsing="false" onAction="#removeFoodButtonPressed" text="Remove food from storage">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeSeasoningButton" layoutX="30.0" layoutY="300.0" mnemonicParsing="false" onAction="#removeSeasoningButtonPressed" text="Remove seasoning from storage">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="expiringFoodButton" layoutX="30.0" layoutY="350.0" mnemonicParsing="false" onAction="#expiringFoodButtonPressed" text="Find food expiring on date">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="foodInfoButton" layoutX="30.0" layoutY="400.0" mnemonicParsing="false" onAction="#foodInfoButtonPressed" text="Find nutritional value of food">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
