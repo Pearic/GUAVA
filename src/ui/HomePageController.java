@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class homePageController {
+public class HomePageController extends SceneController {
     @FXML
     private Label homeLabel;
 
@@ -24,19 +24,21 @@ public class homePageController {
     @FXML
     private Button familyButton;
 
+    public void init() {}
+
     @FXML
     public void homeButtonPressed(ActionEvent event) {
-
+        switchScene("home", event);
     }
 
     @FXML
     public void recipeButtonPressed(ActionEvent event) {
-
+        switchScene("recipes", event);
     }
 
     @FXML
     public void familyButtonPressed(ActionEvent event) {
-
+        switchScene("family", event);
     }
 
 }

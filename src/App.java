@@ -2,8 +2,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ui.homePageController;
+import ui.HomePageController;
 
 public class App extends Application {
 
@@ -19,6 +20,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         window = primaryStage;
         window.setTitle("GUAVA");
+        window.getIcons().add(new Image("file:src/ui/cssFiles/icons/guava.png"));
         homeScene();
     }
 
@@ -27,9 +29,10 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("ui/home.fxml"));
             Parent root = loader.load();
-            homePageController controller = loader.getController();
+            HomePageController controller = loader.getController();
+            controller.init();
             home = new Scene(root);
-            home.getStylesheets().add(getClass().getResource("cssFiles/home.css").toExternalForm());
+            home.getStylesheets().add(getClass().getResource("ui/cssFiles/home.css").toExternalForm());
             window.setScene(home);
             window.show();
         } catch (Exception e) {
