@@ -33,7 +33,7 @@ public class App extends Application {
             loader.setLocation(getClass().getResource("ui/home.fxml"));
             Parent root = loader.load();
             HomePageController controller = loader.getController();
-            controller.init();
+            controller.init(databaseHandler);
             home = new Scene(root);
             home.getStylesheets().add(getClass().getResource("ui/cssFiles/home.css").toExternalForm());
             window.setScene(home);

@@ -1,5 +1,6 @@
 package ui;
 
+import backend.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,17 +25,20 @@ public class FamilyPageController extends SceneController{
     @FXML
     private Button familyButton;
 
-    public void init() {
+    private DatabaseHandler databaseHandler;
+
+    public void init(DatabaseHandler databaseHandler) {
+        this.databaseHandler = databaseHandler;
     }
 
     @FXML
     public void homeButtonPressed(ActionEvent event) {
-        switchScene("home", event);
+        switchScene("home", event, databaseHandler);
     }
 
     @FXML
     public void recipeButtonPressed(ActionEvent event) {
-        switchScene("recipes", event);
+        switchScene("recipes", event, databaseHandler);
     }
 
     @FXML
