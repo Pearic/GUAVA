@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DatabaseHandler {
     private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
-    private static final String ORACLE_USERNAME = "ora_char1025";
-    private static final String ORACLE_PASSWORD = "a66166729";
+    private static final String ORACLE_USERNAME = "ora_sungminl";
+    private static final String ORACLE_PASSWORD = "a60657350";
     private Connection connection = null;
 
     public DatabaseHandler() {
