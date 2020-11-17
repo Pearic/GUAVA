@@ -27,6 +27,11 @@ public class App extends Application {
         homeScene();
     }
 
+    @Override
+    public void stop() {
+        databaseHandler.close();
+    }
+
     private void homeScene() {
         try {
             FXMLLoader loader = new FXMLLoader();

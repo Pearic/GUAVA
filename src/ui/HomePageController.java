@@ -60,31 +60,37 @@ public class HomePageController extends SceneController {
     @FXML
     public void addFoodButtonPressed(ActionEvent event) {
         System.out.println("add food");
+        switchToQueryInputScene("home", "add food", event, databaseHandler);
     }
 
     @FXML
     public void addSeasoningButtonPressed(ActionEvent event) {
         System.out.println("add seasoning");
+        switchToQueryInputScene("home", "add seasoning", event, databaseHandler);
     }
 
     @FXML
     public void removeFoodButtonPressed(ActionEvent event) {
         System.out.println("remove food");
+        switchToQueryInputScene("home", "remove food", event, databaseHandler);
     }
 
     @FXML
     public void removeSeasoningButtonPressed(ActionEvent event) {
         System.out.println("remove seasoning");
+        switchToQueryInputScene("home", "remove seasoning", event, databaseHandler);
     }
 
     @FXML
     public void expiringFoodButtonPressed(ActionEvent event) {
         System.out.println("expiring");
+        switchToQueryInputScene("home", "expiring", event, databaseHandler);
     }
 
     @FXML
     public void foodInfoButtonPressed(ActionEvent event) {
         System.out.println("info");
+        switchToQueryInputScene("home", "info", event, databaseHandler);
     }
 
     @FXML

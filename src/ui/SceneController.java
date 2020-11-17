@@ -26,4 +26,21 @@ public abstract class SceneController {
             e.printStackTrace();
         }
     }
+
+    public void switchToQueryInputScene(String previousPage, String query, ActionEvent event, DatabaseHandler databaseHandler) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("queryInput.fxml"));
+            Parent root = loader.load();
+            QueryInputPageController controller = loader.getController();
+            controller.init(databaseHandler, previousPage, query);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("cssFiles/queryInput.css").toExternalForm());
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
