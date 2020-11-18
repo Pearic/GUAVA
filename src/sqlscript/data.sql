@@ -19,7 +19,7 @@ CREATE TABLE Meats (
 );
 
 CREATE TABLE Produce (
-	Name 		varchar2(20),
+	Name 	    varchar2(20),
 	partOfPlant	varchar2(20),
 	isRipe		integer,
 	PRIMARY KEY	(Name),
