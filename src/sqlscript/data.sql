@@ -1,200 +1,214 @@
+DROP TABLE FoodType CASCADE constraints;
+DROP TABLE Meats CASCADE constraints;
+DROP TABLE Produce CASCADE constraints;
+DROP TABLE Grains CASCADE constraints;
+DROP TABLE Beverage CASCADE constraints;
+DROP TABLE StorageOption CASCADE constraints;
+DROP TABLE TypeCapacity CASCADE constraints;
+DROP TABLE GroceryStore CASCADE constraints;
+DROP TABLE AreaCode CASCADE constraints;
+DROP TABLE ShoppingList CASCADE constraints;
+DROP TABLE Recipe CASCADE constraints;
+DROP TABLE Family CASCADE constraints;
+DROP TABLE Person_Belongs_To CASCADE constraints;
+DROP TABLE SeasoningType CASCADE constraints;
+DROP TABLE Condiments CASCADE constraints;
+DROP TABLE Spices CASCADE constraints;
+DROP TABLE Herbs CASCADE constraints;
+DROP TABLE Food_Stored_In CASCADE constraints;
+DROP TABLE Seasoning_Stored_In CASCADE constraints;
+DROP TABLE Uses CASCADE constraints;
+DROP TABLE Consumes CASCADE constraints;
+DROP TABLE Likes CASCADE constraints;
+DROP TABLE Dislikes CASCADE constraints;
+DROP TABLE Allergic_To CASCADE constraints;
+DROP TABLE Purchases_Food CASCADE constraints;
+DROP TABLE Purchases_Seasoning CASCADE constraints;
+
 CREATE TABLE FoodType (
-	Name		    varchar2(20),
+	Food_Name		    char(20),
 	Calories	    integer,
 	Fat		        integer,
 	Sodium	        integer,
 	Carbohydrate	integer,
 	Protein		    integer,
 	Vitamin	        integer,
-	datePurchased	Date,
-	expiryDate		Date,
-	PRIMARY KEY	(Name)
+	datePurchased	char(20),
+	expiryDate		char(20),
+	PRIMARY KEY	(Food_Name)
 );
 
 CREATE TABLE Meats (
-	Name		varchar2(20),
+	Food_Name		char(20),
 	isFresh	integer,
-	PRIMARY KEY	(Name),
-	FOREIGN KEY	(Name) References FoodType
+	PRIMARY KEY	(Food_Name),
+	FOREIGN KEY	(Food_Name) References FoodType
 );
 
 CREATE TABLE Produce (
-	Name 		varchar2(20),
-	partOfPlant	varchar2(20),
+	Food_Name 		char(20),
+	partOfPlant	char(20),
 	isRipe		integer,
-	PRIMARY KEY	(Name),
-	FOREIGN KEY	(Name) References FoodType
+	PRIMARY KEY	(Food_Name),
+	FOREIGN KEY	(Food_Name) References FoodType
 );
 
 CREATE TABLE Grains (
-	Name 		varchar2(20),
+	Food_Name 		char(20),
 	isPackaged	integer,
 	isCooked	integer,
-	PRIMARY KEY	(Name),
-	FOREIGN KEY	(Name) References FoodType
+	PRIMARY KEY	(Food_Name),
+	FOREIGN KEY	(Food_Name) References FoodType
 );
 
 CREATE TABLE Beverage (
-	Name 		varchar2(20),
-	flavour		varchar2(20),
+	Food_Name 		char(20),
+	flavour		char(20),
 	isCarbonated	integer,
-	size		integer,
-	brand		varchar2(20),
-	PRIMARY KEY	(Name),
-	FOREIGN KEY	(Name) References FoodType
+	contentSize		integer,
+	brand		char(20),
+	PRIMARY KEY	(Food_Name),
+	FOREIGN KEY	(Food_Name) References FoodType
 );
 
 CREATE TABLE StorageOption (
 	storageID	integer,
-	Type		varchar2(20),
-	Temperature	float
+	Type		char(20),
+	Temperature	float,
 	PRIMARY KEY 	(storageID)
 );
 
 CREATE TABLE TypeCapacity (
-	Type		varchar2(20),
+	Type		char(20),
 	Capacity	float,
 	PRIMARY KEY	(Type)
 );
 
 CREATE TABLE GroceryStore (
 	storeID		integer,
-	name		varchar2(20),
+	name		char(50),
 	phone		integer,
-	city		varchar2(20),
-	address	integer,
+	city		char(20),
+	address	    char(50),
 	PRIMARY KEY 	(storeID)
 );
 
 CREATE TABLE AreaCode (
-	city		varchar2(20),
+	city		char(20),
 	acode		integer,
 	PRIMARY KEY 	(city)
 );
 
 CREATE TABLE ShoppingList (
-	name		varchar2(20),
+	name		char(50),
 	totalPrice	float,
 	PRIMARY KEY 	(name)
 );
 
 CREATE TABLE Recipe (
-	name		varchar2(20),
+	recipe_name		char(50),
 	servingSize	integer,
 	timeNeeded	integer,
-	PRIMARY KEY 	(name)
+	PRIMARY KEY 	(recipe_name)
 );
 
 CREATE TABLE Family (
 	familyID	integer,
-	lastName	varchar2(20),
+	lastName	char(20),
 	numMembers	integer,
 	PRIMARY KEY 	(familyID)
 );
 
 CREATE TABLE Person_Belongs_To (
-	name		varchar2(20),
+	name		char(20),
 	familyID	integer,
 	age		integer,
-	gender		varchar2(20),
-	role		varchar2(20),
+	gender		char(20),
+	role		char(20),
 	PRIMARY KEY 	(name, familyID),
     FOREIGN KEY	(familyID) REFERENCES Family ON DELETE CASCADE
 );
 
 
 CREATE TABLE SeasoningType (
-	name		  varchar2(20),
+	seasoning_name		  char(20),
 	price		  integer,
-	datePurchased Date,
-	expiryDate	  Date,
-	PRIMARY KEY 	(name)
+	datePurchased char(20),
+	expiryDate	  char(20),
+	PRIMARY KEY 	(seasoning_name)
 );
 
 CREATE TABLE Condiments (
-	name		varchar2(20),
-	brand		varchar2(20),
-	size		integer,
-	PRIMARY KEY 	(name),
-	FOREIGN KEY	(name) REFERENCES SeasoningType
+	seasoning_name		char(20),
+	brand		char(20),
+	contentSize		integer,
+	PRIMARY KEY 	(seasoning_name),
+	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
 );
 
 CREATE TABLE Spices (
-	name		varchar2(20),
+	seasoning_name		char(20),
 	isGrounded	integer,
-	PRIMARY KEY 	(name),
-	FOREIGN KEY	(name) REFERENCES SeasoningType
+	PRIMARY KEY 	(seasoning_name),
+	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
 );
 
 CREATE TABLE Herbs (
-	name		varchar2(20),
+	seasoning_name		char(20),
 	isDry		integer,
-	PRIMARY KEY 	(name),
-	FOREIGN KEY	(name) REFERENCES SeasoningType
+	PRIMARY KEY 	(seasoning_name),
+	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
 );
 
 CREATE TABLE Food_Stored_In (
-	name		varchar2(20),
-	storageID	integer
-NOT NULL,
-	PRIMARY KEY	(Name),
-	FOREIGN KEY 	(Name) REFERENCES FoodType,
-	FOREIGN KEY	(storageID) REFERENCES StorageOption ON DELETE NO ACTION ON UPDate CASCADE
+	Food_Name		char(20),
+	storageID	integer NOT NULL,
+	PRIMARY KEY	(Food_Name),
+	FOREIGN KEY 	(Food_Name) REFERENCES FoodType,
+	FOREIGN KEY	(storageID) REFERENCES StorageOption
 );
 
 CREATE TABLE Seasoning_Stored_In (
-	name		varchar2(20),
-	storageID	integer
-NOT NULL,
-	PRIMARY KEY	(name),
-	FOREIGN KEY	(name) REFERENCES SeasoningType,
-	FOREIGN KEY	(storageID) REFERENCES StorageOption ON DELETE NO ACTION ON UPDate CASCADE
-);
-
-
-CREATE TABLE Contains (
-	recipe_name		varchar2(20),
-	seasoning_name	varchar2(20),
-	food_name		varchar2(20),
-	PRIMARY KEY	(recipe_name, seasoning_name, food_name),
-	FOREIGN KEY	(recipe_name) REFERENCES recipe,
+	seasoning_name		char(20),
+	storageID	integer NOT NULL,
+	PRIMARY KEY	(seasoning_name),
 	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType,
-	FOREIGN KEY	(food_name) References FoodType
+	FOREIGN KEY	(storageID) REFERENCES StorageOption
 );
 
 CREATE TABLE Uses (
-	date			Date,
-	person_name		varchar2(20),
+	dateUsed		char(20),
+	person_name		char(20),
 	familyID		integer,
-	seasoning_name	varchar2(20),
+	seasoning_name	char(20),
 	PRIMARY KEY	(person_name, familyID, seasoning_name),
 	FOREIGN KEY	(person_name, familyID) REFERENCES Person_Belongs_To,
 	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
 );
 
 CREATE TABLE Consumes (
-	date			Date,
-	person_name		varchar2(20),
+	dateConsumed	char(20),
+	person_name		char(20),
 	familyID		integer,
-	food_name		varchar2(20),
+	food_name		char(20),
 	PRIMARY KEY	(person_name, familyID, food_name),
 	FOREIGN KEY	(person_name, familyID) REFERENCES Person_Belongs_To,
 	FOREIGN KEY	(food_name) REFERENCES FoodType
 );
 
 CREATE TABLE Likes (
-	person_name		varchar2(20),
+	person_name		char(20),
 	familyID		integer,
-	food_name		varchar2(20),
+	food_name		char(20),
 	PRIMARY KEY	(person_name, familyID, food_name),
 	FOREIGN KEY	(person_name, familyID) REFERENCES Person_Belongs_To,
 	FOREIGN KEY	(food_name) REFERENCES FoodType
 );
 
 CREATE TABLE Dislikes (
-	person_name		varchar2(20),
+	person_name		char(20),
 	familyID		integer,
-	food_name		varchar2(20),
+	food_name		char(20),
 	PRIMARY KEY	(person_name, familyID, food_name),
 	FOREIGN KEY	(person_name, familyID) REFERENCES Person_Belongs_To,
 	FOREIGN KEY	(food_name) REFERENCES FoodType
@@ -202,37 +216,18 @@ CREATE TABLE Dislikes (
 
 
 CREATE TABLE Allergic_To (
-	person_name		varchar2(20),
+	person_name		char(20),
 	familyID		integer,
-	food_name		varchar2(20),
+	food_name		char(20),
 	PRIMARY KEY	(person_name, familyID, food_name),
 	FOREIGN KEY	(person_name, familyID) REFERENCES Person_Belongs_To,
 	FOREIGN KEY	(food_name) REFERENCES FoodType
 );
 
-CREATE TABLE Puts_Food (
-	food_name		varchar2(20) NOT NULL,
-	familyID		integer,
-	list_name		varchar2(20),
-	PRIMARY KEY	(list_name, familyID, food_name),
-	FOREIGN KEY	(familyID) References Family,
-	FOREIGN KEY	(list_name) REFERENCES ShoppingList,
-    FOREIGN KEY	(food_name) REFERENCES FoodType
-);
-
-CREATE TABLE Puts_Seasoning (
-	seasoning_name	varchar2(20) NOT NULL,
-	familyID		integer,
-	list_name		varchar2(20),
-	PRIMARY KEY	(list_name, familyID, seasoning_name),
-	FOREIGN KEY	(familyID) REFERENCES Family,
-	FOREIGN KEY	(list_name) REFERENCES ShoppingList,
-    FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
-);
 
 CREATE TABLE Purchases_Food (
-	purchaseDate		Date,
-	food_name		varchar2(20) NOT NULL,
+	purchaseDate		char(20),
+	food_name		char(20) NOT NULL,
 	familyID		integer,
 	storeID			integer,
 	PRIMARY KEY	(storeID, familyID, food_name),
@@ -242,8 +237,8 @@ CREATE TABLE Purchases_Food (
 );
 
 CREATE TABLE Purchases_Seasoning (
-	purchaseDate		Date,
-	seasoning_name	varchar2(20) NOT NULL,
+	purchaseDate		char(20),
+	seasoning_name	char(20) NOT NULL,
 	familyID		integer,
 	storeID			integer,
 	PRIMARY KEY	(storeID, familyID, seasoning_name),
@@ -252,238 +247,347 @@ CREATE TABLE Purchases_Seasoning (
     FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
 );
 
-INSERT INTO FoodType (Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
-VALUES (("Tomato", 132, 6, 500, 17, 3, 50, 2020-10-13, 2020-10-24),
-	   ("Potato", 77, 0, 6, 17, 2, 55, 2020-10-13, 2020-11-13),
-	   ("Beef brisket", 155, 7, 79, 0, 21, 75, 2020-10-13, 2020-11-13),
-	   ("Salmon", 208, 13, 59, 0, 20, 90, 2020-10-21, 2020-12-21),
-	   ("Rice", 130, 0, 1, 28, 3, 15, 2020-10-20, 2022-10-20),
- 	   ("Chicken leg", 172, 6, 40, 0, 28, 60, 2020-10-20, 2020-11-20),
-	   ("Pork belly", 518, 53, 32, 0, 9, 20, 2020-10-20, 2020-11-23),
-	   ("Scallop", 111, 1, 667, 5, 21, 40, 2020-10-10, 2020-12-10),
-	   ("Carrot", 41, 0, 69, 10, 1, 350, 2020-10-13, 2020-11-13),
-	   ("Onion", 40, 0, 4, 9, 1, 20, 2020-10-13, 2020-11-13),
-	   ("Cabbage", 25, 0, 18, 6, 1, 65, 2020-10-13, 2020-10-23),
-	   ("Noodles", 138, 2, 5, 25, 4.5, 10, 2020-10-20, 2021-10-20),
-	   ("Brown rice", 111, 1, 5, 23, 3, 16, 2020-10-20, 2022-10-20),
-	   ("Cereal", 378, 1, 795, 87, 6, 500, 2020-10-01, 2022-10-01),
-	   ("Oatmeal", 68, 1, 49, 12, 2, 50, 2020-10-02, 2022-10-02),
-	   ("Coca cola", 240, 0, 75, 65, 0, 0, 2020-05-30, 2022-05-30),
-	   ("Apple juice", 46, 0, 4, 11, 0, 0, 2019-03-11, 2021-03-11),
-       ("Milk tea", 232, 0, 0, 54, 0, 0, 2020-10-13, 2021-10-13),
-       ("Orange juice", 45, 0, 10, 0, 1, 90, 2019-07-20, 2020-07-20),
-       ("Fanta", 250, 0, 5, 0, 0, 0, 2020-10-10, 2022-10-10)
-);
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES     ('Tomato', 132, 6, 500, 17, 3, 50, '2020-10-13', '2020-10-24');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Potato', 77, 0, 6, 17, 2, 55, '2020-10-13', '2020-11-13');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Beef brisket', 155, 7, 79, 0, 21, 75, '2020-10-13', '2020-11-13');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Salmon', 208, 13, 59, 0, 20, 90, '2020-10-21', '2020-12-21');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Rice', 130, 0, 1, 28, 3, 15, '2020-10-20', '2022-10-20');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES 	   ('Chicken leg', 172, 6, 40, 0, 28, 60, '2020-10-20', '2020-11-20');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Pork belly', 518, 53, 32, 0, 9, 20, '2020-10-20', '2020-11-23');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Scallop', 111, 1, 667, 5, 21, 40, '2020-10-10', '2020-12-10');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Carrot', 41, 0, 69, 10, 1, 350, '2020-10-13', '2020-11-13');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Onion', 40, 0, 4, 9, 1, 20, '2020-10-13', '2020-11-13');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Cabbage', 25, 0, 18, 6, 1, 65, '2020-10-13', '2020-10-23');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Noodles', 138, 2, 5, 25, 4.5, 10, '2020-10-20', '2021-10-20');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Brown rice', 111, 1, 5, 23, 3, 16, '2020-10-20', '2022-10-20');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Cereal', 378, 1, 795, 87, 6, 500, '2020-10-01', '2022-10-01');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Oatmeal', 68, 1, 49, 12, 2, 50, '2020-10-02', '2022-10-02');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Coca cola', 240, 0, 75, 65, 0, 0, '2020-05-30', '2022-05-30');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES	   ('Apple juice', 46, 0, 4, 11, 0, 0, '2019-03-11', '2021-03-11');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES     ('Milk tea', 232, 0, 0, 54, 0, 0, '2020-10-13', '2021-10-13');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES     ('Orange juice', 45, 0, 10, 0, 1, 90, '2019-07-20', '2020-07-20');
+INSERT INTO FoodType (Food_Name, Calories, Fat, Sodium, Carbohydrate, Protein, Vitamin, datePurchased, expiryDate)
+VALUES     ('Fanta', 250, 0, 5, 0, 0, 0, '2020-10-10', '2022-10-10');
 
-INSERT INTO Meats(Name, isFresh)
-VALUES (("Beef brisket", 1),
-	   ("Salmon", 1),
-	   ("Chicken leg", 1),
-	   ("Pork belly", 1),
-	   ("Scallop", 0));
 
-INSERT INTO Produce(Name, partOfPlant, isRipe)
-VALUES (("Tomato", "Fruit", 1),
-	   ("Potato", "Root", NULL),
-	   ("Carrot", "Root", NULL),
-	   ("Onion", "Root", NULL),
-	   ("Cabbage", "Leaves", NULL));
+INSERT INTO Meats(Food_Name, isFresh)
+VALUES      ('Beef brisket', 1);
+INSERT INTO Meats(Food_Name, isFresh)
+VALUES      ('Salmon', 1);
+INSERT INTO Meats(Food_Name, isFresh)
+VALUES 	   ('Chicken leg', 1);
+INSERT INTO Meats(Food_Name, isFresh)
+VALUES 	   ('Pork belly', 1);
+INSERT INTO Meats(Food_Name, isFresh)
+VALUES      ('Scallop', 0);
 
-INSERT INTO Grains(Name, isPackaged, isCooked)
-VALUES (("Rice", 1, 0),
-	   ("Noodles", 1, 0),
-	   ("Brown rice", 1, 0),
-	   ("Cereal", 1, 1),
-	   ("Oatmeal", 1, 0));
+INSERT INTO Produce(Food_Name, partOfPlant, isRipe)
+VALUES      ('Tomato', 'Fruit', 1);
+INSERT INTO Produce(Food_Name, partOfPlant, isRipe)
+VALUES	   ('Potato', 'Root', NULL);
+INSERT INTO Produce(Food_Name, partOfPlant, isRipe)
+VALUES	   ('Carrot', 'Root', NULL);
+INSERT INTO Produce(Food_Name, partOfPlant, isRipe)
+VALUES	   ('Onion', 'Root', NULL);
+INSERT INTO Produce(Food_Name, partOfPlant, isRipe)
+VALUES	   ('Cabbage', 'Leaves', NULL);
 
-INSERT INTO Beverage(Name, flavour, isCarbonated, size, brand)
-VALUES (("Coca cola", "Coke", 1, 355, "Coca cola"),
-	   ("Apple juice", "Apple", 0, 200, "Sunrype"),
-	   ("Milk tea", "Oolong milk tea", 0, 350, "Suntory"),
-	   ("Orange juice", "Orange", 0, 200, "Tropicana"),
-	   ("Fanta", "Orange", 1, 355, "Coca cola"));
+INSERT INTO Grains(Food_Name, isPackaged, isCooked)
+VALUES      ('Rice', 1, 0);
+INSERT INTO Grains(Food_Name, isPackaged, isCooked)
+VALUES	   ('Noodles', 1, 0);
+INSERT INTO Grains(Food_Name, isPackaged, isCooked)
+VALUES	   ('Brown rice', 1, 0);
+INSERT INTO Grains(Food_Name, isPackaged, isCooked)
+VALUES	   ('Cereal', 1, 1);
+INSERT INTO Grains(Food_Name, isPackaged, isCooked)
+VALUES	   ('Oatmeal', 1, 0);
+
+INSERT INTO Beverage(Food_Name, flavour, isCarbonated, contentSize, brand)
+VALUES      ('Coca cola', 'Coke', 1, 355, 'Coca cola');
+INSERT INTO Beverage(Food_Name, flavour, isCarbonated, contentSize, brand)
+VALUES	   ('Apple juice', 'Apple', 0, 200, 'Sunrype');
+INSERT INTO Beverage(Food_Name, flavour, isCarbonated, contentSize, brand)
+VALUES	   ('Milk tea', 'Oolong milk tea', 0, 350, 'Suntory');
+INSERT INTO Beverage(Food_Name, flavour, isCarbonated, contentSize, brand)
+VALUES	   ('Orange juice', 'Orange', 0, 200, 'Tropicana');
+INSERT INTO Beverage(Food_Name, flavour, isCarbonated, contentSize, brand)
+VALUES	   ('Fanta', 'Orange', 1, 355, 'Coca cola');
 
 INSERT INTO StorageOption(storageID,Type, Temperature)
-VALUES ((1, "Fridge", 2.5),
-       (2, "Freezer", 0),
-       (3, "Cabinet", 21.3),
-	   (4, "Basement storage", 15),
-	   (5, "Basement freezer", 0));
+VALUES      (1, 'Fridge', 2.5);
+INSERT INTO StorageOption(storageID,Type, Temperature)
+VALUES      (2, 'Freezer', 0);
+INSERT INTO StorageOption(storageID,Type, Temperature)
+VALUES       (3, 'Cabinet', 21.3);
+INSERT INTO StorageOption(storageID,Type, Temperature)
+VALUES	   (4, 'Basement storage', 15);
+INSERT INTO StorageOption(storageID,Type, Temperature)
+VALUES	   (5, 'Basement freezer', 0);
 
 INSERT INTO TypeCapacity(type, capacity)
-VALUES (("Fridge", 20),
-	   ("Freezer", 25),
-	   ("Cabinet", 10.5),
-	   ("Basement storage", 12),
-	   ("Basement freezer", 35));
+VALUES ('Fridge', 20);
+INSERT INTO TypeCapacity(type, capacity)
+VALUES	   ('Freezer', 25);
+INSERT INTO TypeCapacity(type, capacity)
+VALUES	   ('Cabinet', 10.5);
+INSERT INTO TypeCapacity(type, capacity)
+VALUES	   ('Basement storage', 12);
+INSERT INTO TypeCapacity(type, capacity)
+VALUES	   ('Basement freezer', 35);
 
 INSERT INTO GroceryStore(storeID, name, phone, city, address)
-VALUES ((1, "Safeway", 9392850, "Coquitlam", "1033 Austin Ave"),
-	   (2, "T&T", 4364881, "Burnaby", "147-4800 Kingsway"),
-	   (3, "Save-On-Foods", 2612423, "Vancouver", "3535 W 41st Ave"),
-	   (4, "FoodyWorld", 2330886, "Richmond", "3000 Sexsmith Rd"),
-	   (5, "Costco", 5522228, "Port Coquitlam", "2370 Ottawa St"));
+VALUES      (1, 'Safeway', 9392850, 'Coquitlam', '1033 Austin Ave');
+INSERT INTO GroceryStore(storeID, name, phone, city, address)
+VALUES	   (2, 'TNT', 4364881, 'Burnaby', '147-4800 Kingsway');
+INSERT INTO GroceryStore(storeID, name, phone, city, address)
+VALUES	   (3, 'Save-On-Foods', 2612423, 'Vancouver', '3535 W 41st Ave');
+INSERT INTO GroceryStore(storeID, name, phone, city, address)
+VALUES	   (4, 'FoodyWorld', 2330886, 'Richmond', '3000 Sexsmith Rd');
+INSERT INTO GroceryStore(storeID, name, phone, city, address)
+VALUES	   (5, 'Costco', 5522228, 'Port Coquitlam', '2370 Ottawa St');
 
 INSERT INTO AreaCode(city, aCode)
-VALUES (("Coquitlam", 604),
-	   ("Burnaby", 778),
-	   ("Vancouver", 604),
-	   ("Richmond", 604),
-       ("Port Coquitlam", 778));
+VALUES      ('Coquitlam', 604);
+INSERT INTO AreaCode(city, aCode)
+VALUES	   ('Burnaby', 778);
+INSERT INTO AreaCode(city, aCode)
+VALUES	   ('Vancouver', 604);
+INSERT INTO AreaCode(city, aCode)
+VALUES	   ('Richmond', 604);
+INSERT INTO AreaCode(city, aCode)
+VALUES      ('Port Coquitlam', 778);
 
 INSERT INTO ShoppingList(name, totalPrice)
-VALUES (("need eggs", 15.99),
-	   ("get some bread", 5.99),
-	   ("Thanksgiving dinner", 78.89),
-	   ("lunches for the week", 41.35),
-	   ("running out of juice", 8.98));
+VALUES    ('need eggs', 15.99);
+INSERT INTO ShoppingList(name, totalPrice)
+VALUES    ('get some bread', 5.99);
+INSERT INTO ShoppingList(name, totalPrice)
+VALUES 	  ('Thanksgiving dinner', 78.89);
+INSERT INTO ShoppingList(name, totalPrice)
+VALUES    ('lunches for the week', 41.35);
+INSERT INTO ShoppingList(name, totalPrice)
+VALUES 	  ('running out of juice', 8.98);
 
-INSERT INTO Recipe(name, servingSize, timeNeeded)
-VALUES (("Lasagna", 4, 60),
-	   ("Pepperoni pizza", 2, 120),
-	   ("Fried rice", 3, 30),
-	   ("Beef stew", 6, 180),
-  	   ("Fried noodles", 2, 35));
+INSERT INTO Recipe(recipe_name, servingSize, timeNeeded)
+VALUES      ('Lasagna', 4, 60);
+INSERT INTO Recipe(recipe_name, servingSize, timeNeeded)
+VALUES	   ('Pepperoni pizza', 2, 120);
+INSERT INTO Recipe(recipe_name, servingSize, timeNeeded)
+VALUES	   ('Fried rice', 3, 30);
+INSERT INTO Recipe(recipe_name, servingSize, timeNeeded)
+VALUES	   ('Beef stew', 6, 180);
+INSERT INTO Recipe(recipe_name, servingSize, timeNeeded)
+VALUES      ('Fried noodles', 2, 35);
 
 INSERT INTO Family(familyID, lastName, numMembers)
-VALUES ((1, "Lee", 4),
-	   (2, "Li", 3),
-	   (3, "Pang", 5),
-	   (4, "Smith", 6),
-	   (5, "White", 2));
+VALUES      (1, 'Lee', 4);
+INSERT INTO Family(familyID, lastName, numMembers)
+VALUES	   (2, 'Li', 3);
+INSERT INTO Family(familyID, lastName, numMembers)
+VALUES	   (3, 'Pang', 5);
+INSERT INTO Family(familyID, lastName, numMembers)
+VALUES	   (4, 'Smith', 6);
+INSERT INTO Family(familyID, lastName, numMembers)
+VALUES	   (5, 'White', 2);
 
 INSERT INTO Person_Belongs_To(name, familyID, age, gender, role)
-VALUES (("Shawn", 4, 19, "male", "son"),
-	   ("Betty", 4, 16, "female", "daughter),
-	   ("Jack"", 4, 45, "male", "father"),
-	   ("Rose", 4, 44, "female", "mother"),
-	   ("Julian", 4, 78, "male", "grandfather"));
+VALUES      ('Shawn', 4, 19, 'male', 'son');
+INSERT INTO Person_Belongs_To(name, familyID, age, gender, role)
+VALUES	   ('Betty', 4, 16, 'female', 'daughter');
+INSERT INTO Person_Belongs_To(name, familyID, age, gender, role)
+VALUES	   ('Jack', 4, 45, 'male', 'father');
+INSERT INTO Person_Belongs_To(name, familyID, age, gender, role)
+VALUES	   ('Rose', 4, 44, 'female', 'mother');
+INSERT INTO Person_Belongs_To(name, familyID, age, gender, role)
+VALUES	   ('Julian', 4, 78, 'male', 'grandfather');
 
-INSERT INTO SeasoningType(name, price, datePurchased, expiryDate)
-VALUES (("Ketchup", 5.99, 2020-01-20, 2022-01-20),
-	   ("Sesame oil", 3.99, 2019-04-22, 2021-04-21),
-	   ("Basil", 2.89, 2020-10-22, 2020-11-22),
-	   ("Hoisin sauce", 4.99, 2018-11-23, 2020-11-23),
-	   ("Peppercorn", 1.99, 2018-01-02, 2018-07-02),
-	   ("Mustard", 3.99, 2010-10-30, 2012-10-30),
-	   ("Gochujang". 5.99, 2020-10-01, 2022-10-01),
-	   ("Mayonnaise", 4.99, 2020-10-03, 2022-10-03),
-	   ("Hot sauce", 3.29, 2020-05-23, 2022-05-22),
-	   ("Cumin", 2.33, 2020-10-23, 2021-10-21),
-	   ("Turmeric", 2.99, 2020-10-30, 2020-12-30),
-	   ("Red chili", 1.99, 2020-04-21, 2020-10-21),
-	   ("Dry ginger", 3.49, 2020-03-30, 2020-09-20),
-	   (""Basil"", 2.49, 2020-03-20, 2020-05-29),
-       ("Thyme", 2.99, 2020-10-20, 2021-01-03),
-	   ("Chives", 3.99, 2020-10-03, 2020-10-23),
-       ("Oregano", 2.89, 2020-03-04, 2020-10-05),
-       ("Coriander", 2.79, 2020-06-04, 2020-10-04));
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES     ('Ketchup', 5.99, '2020-01-20', '2022-01-20');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Sesame oil', 3.99, '2019-04-22', '2021-04-21');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Basil', 2.89, '2020-10-22', '2020-11-22');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Hoisin sauce', 4.99, '2018-11-23', '2020-11-23');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Peppercorn', 1.99, '2018-01-02', '2018-07-02');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Mustard', 3.99, '2010-10-30', '2012-10-30');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Gochujang', 5.99, '2020-10-01', '2022-10-01');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Mayonnaise', 4.99, '2020-10-03', '2022-10-03');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Hot sauce', 3.29, '2020-05-23', '2022-05-22');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Cumin', 2.33, '2020-10-23', '2021-10-21');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Turmeric', 2.99, '2020-10-30', '2020-12-30');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Red chili', 1.99, '2020-04-21', '2020-10-21');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Dry ginger', 3.49, '2020-03-30', '2020-09-20');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES     ('Thyme', 2.99, '2020-10-20', '2021-01-03');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES	   ('Chives', 3.99, '2020-10-03', '2020-10-23');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES     ('Oregano', 2.89, '2020-03-04', '2020-10-05');
+INSERT INTO SeasoningType(seasoning_name, price, datePurchased, expiryDate)
+VALUES     ('Coriander', 2.79, '2020-06-04', '2020-10-04');
 
-INSERT INTO Condiments(name, brand, size)
-VALUES (("Ketchup", "Heinz" 397),
-       ("Mustard", "French"s"", 396),
-	   ("Gochujang", "Sunchang", 500),
-	   ("Mayonnaise", "Hellmann"s"", 591)
-	   ("Hot Sauce", "Frank"s"", 354));
+INSERT INTO Condiments(seasoning_name, brand, contentSize)
+VALUES     ('Ketchup', 'Heinz', 397);
+INSERT INTO Condiments(seasoning_name, brand, contentSize)
+VALUES     ('Mustard', 'French', 396);
+INSERT INTO Condiments(seasoning_name, brand, contentSize)
+VALUES 	   ('Gochujang', 'Sunchang', 500);
+INSERT INTO Condiments(seasoning_name, brand, contentSize)
+VALUES 	   ('Mayonnaise', 'Hellmanns', 591);
+INSERT INTO Condiments(seasoning_name, brand, contentSize)
+VALUES 	   ('Hot sauce', 'Frank', 354);
 
-INSERT INTO Spices(name, isGrounded)
-VALUES (("Peppercorn", 1),
-       ("Cumin", 1),
-	   ("Turmeric", 0),
-       ("Red chili", 1),
-       ("Dry ginger", 0));
+INSERT INTO Spices(seasoning_name, isGrounded)
+VALUES      ('Peppercorn', 1);
+INSERT INTO Spices(seasoning_name, isGrounded)
+VALUES       ('Cumin', 1);
+INSERT INTO Spices(seasoning_name, isGrounded)
+VALUES	   ('Turmeric', 0);
+INSERT INTO Spices(seasoning_name, isGrounded)
+VALUES     ('Red chili', 1);
+INSERT INTO Spices(seasoning_name, isGrounded)
+VALUES     ('Dry ginger', 0);
 
 
-INSERT INTO Herbs(name, isDry)
-VALUES (("Basil", 1),
-       ("Thyme", 1),
-	   ("Chives", 0),
-       ("Oregano", 1),
-       ("Coriander", 0));
+INSERT INTO Herbs(seasoning_name, isDry)
+VALUES      ('Basil', 1);
+INSERT INTO Herbs(seasoning_name, isDry)
+VALUES       ('Thyme', 1);
+INSERT INTO Herbs(seasoning_name, isDry)
+VALUES	   ('Chives', 0);
+INSERT INTO Herbs(seasoning_name, isDry)
+VALUES       ('Oregano', 1);
+INSERT INTO Herbs(seasoning_name, isDry)
+VALUES       ('Coriander', 0);
 
-INSERT INTO Food_Stored_In(name, storageID)
-VALUES (("tomato", 1),
-	   ("potato", 1),
-	   ("pork belly", 2),
-	   ("salmon", 2),
-	   ("rice", 3));
+INSERT INTO Food_Stored_In(Food_Name, storageID)
+VALUES      ('Tomato', 1);
+INSERT INTO Food_Stored_In(Food_Name, storageID)
+VALUES	   ('Potato', 1);
+INSERT INTO Food_Stored_In(Food_Name, storageID)
+VALUES	   ('Pork belly', 2);
+INSERT INTO Food_Stored_In(Food_Name, storageID)
+VALUES	   ('Salmon', 2);
+INSERT INTO Food_Stored_In(Food_Name, storageID)
+VALUES	   ('Rice', 3);
 
-INSERT INTO Seasoning_Stored_In(name, storageID)
-VALUES (("Ketchup", 1),
-	   ("Sesame oil", 3),
-	   ("Basil", 3),
-	   ("Hoisin Sauce", 1),
-	   ("Peppercorn", 4));
+INSERT INTO Seasoning_Stored_In(seasoning_name, storageID)
+VALUES      ('Ketchup', 1);
+INSERT INTO Seasoning_Stored_In(seasoning_name, storageID)
+VALUES	   ('Sesame oil', 3);
+INSERT INTO Seasoning_Stored_In(seasoning_name, storageID)
+VALUES	   ('Basil', 3);
+INSERT INTO Seasoning_Stored_In(seasoning_name, storageID)
+VALUES	   ('Hoisin sauce', 1);
+INSERT INTO Seasoning_Stored_In(seasoning_name, storageID)
+VALUES	   ('Peppercorn', 4);
 
-INSERT INTO Contains(recipe_name, seasoning_name, food_name)
-VALUES (("Fried rice", "Soy sauce", "Rice"),
-	   ("Pepperoni pizza", "Basil", "Tomato"),
-	   ("Lasagna", "Tomato sauce", "Cheese"),
-	   ("Beef stew", "Pepper", "Beef brisket"),
-	   ("Fried noodles", "Soy sauce", "Noodles"));
+INSERT INTO Uses(dateUsed, person_name, familyID, seasoning_name)
+VALUES     ('2020-10-22', 'Jack', 4, 'Hoisin sauce');
+INSERT INTO Uses(dateUsed, person_name, familyID, seasoning_name)
+VALUES	   ('2020-10-22', 'Jack', 4, 'Ketchup');
+INSERT INTO Uses(dateUsed, person_name, familyID, seasoning_name)
+VALUES	   ('2020-10-22', 'Jack', 4, 'Basil');
+INSERT INTO Uses(dateUsed, person_name, familyID, seasoning_name)
+VALUES	   ('2020-10-22', 'Jack', 4, 'Sesame oil');
+INSERT INTO Uses(dateUsed, person_name, familyID, seasoning_name)
+VALUES	   ('2020-10-22', 'Betty', 4, 'Ketchup');
 
-INSERT INTO Uses(date, person_name, familyID, seasoning_name)
-VALUES ((2020-10-22, "Jack", 4, "Soy sauce"),
-	   (2020-10-22, "Jack", 4, "Ketchup"),
-	   (2020-10-22, "Jack", 4, "Basil"),
-	   (2020-10-22, "Jack", 4, "Sesame oil"),
-	   (2020-10-22, "Betty", 4, "Ketchup"));
-
-INSERT INTO Consumes(date, person_name, familyID, food_name)
-VALUES ((2020-10-21, "Shawn", 4, "Beef brisket"),
-	   (2020-10-21, "Betty", 4, "Beef brisket"),
-	   (2020-10-21, "Jack", 4, "Tomato"),
-	   (2020-10-21, "Rose", 4, "Potato"),
-	   (2020-10-21, "Jack", 4, "Beef brisket"));
+INSERT INTO Consumes(dateConsumed, person_name, familyID, food_name)
+VALUES      ('2020-10-21', 'Shawn', 4, 'Beef brisket');
+INSERT INTO Consumes(dateConsumed, person_name, familyID, food_name)
+VALUES 	   ('2020-10-21', 'Betty', 4, 'Beef brisket');
+INSERT INTO Consumes(dateConsumed, person_name, familyID, food_name)
+VALUES 	   ('2020-10-21', 'Jack', 4, 'Tomato');
+INSERT INTO Consumes(dateConsumed, person_name, familyID, food_name)
+VALUES 	   ('2020-10-21', 'Rose', 4, 'Potato');
+INSERT INTO Consumes(dateConsumed, person_name, familyID, food_name)
+VALUES 	   ('2020-10-21', 'Jack', 4, 'Beef brisket');
 
 INSERT INTO Likes(person_name, familyID, food_name)
-VALUES (("Jack", 4, "Tomato");
-	   ("Jack", 4, "Rice");
-	   ("Betty", 4, "Beef brisket");
-	   ("Shawn", 4, "Beef brisket"),
-	   ("Rose", 4, "Potato"));
+VALUES      ('Jack', 4, 'Tomato');
+INSERT INTO Likes(person_name, familyID, food_name)
+VALUES	   ('Jack', 4, 'Rice');
+INSERT INTO Likes(person_name, familyID, food_name)
+VALUES	   ('Betty', 4, 'Beef brisket');
+INSERT INTO Likes(person_name, familyID, food_name)
+VALUES	   ('Shawn', 4, 'Beef brisket');
+INSERT INTO Likes(person_name, familyID, food_name)
+VALUES	   ('Rose', 4, 'Potato');
 
 INSERT INTO Dislikes(person_name, familyID, food_name)
-VALUES (("Jack", 4, "Potato"),
-	   ("Jack", 4, "Noodles"),
-	   ("Betty", 4, "Tomato"),
-	   ("Shawn", 4, "Tomato"),
-	   ("Shawn", 4, "Potato"));
+VALUES      ('Jack', 4, 'Potato');
+INSERT INTO Dislikes(person_name, familyID, food_name)
+VALUES 	   ('Jack', 4, 'Noodles');
+INSERT INTO Dislikes(person_name, familyID, food_name)
+VALUES 	   ('Betty', 4, 'Tomato');
+INSERT INTO Dislikes(person_name, familyID, food_name)
+VALUES 	   ('Shawn', 4, 'Tomato');
+INSERT INTO Dislikes(person_name, familyID, food_name)
+VALUES 	   ('Shawn', 4, 'Potato');
 
 INSERT INTO Allergic_To(person_name, familyID, food_name)
-VALUES (("Betty", 4, "Tomato"),
-	   ("Shawn", 4, "Tomato"),
-	   ("Rose", 4, "Tomato"),
-	   ("Jack", 4, “Salmon""),
-	   ("Shawn", 4, "Salmon"));
-
-INSERT INTO Puts_Food(food_name, familyID, list_name)
-VALUES (("Tomato", 4, "lunches for the week"),
-	   ("Beef brisket", 4, "Thanksgiving dinner"),
-	   ("Salmon", 4, "Thanksgiving dinner"),
-	   ("Potato", 4, "lunches of the week"),
-	   ("Rice", 4, "lunches of the week"));
-
-INSERT INTO Puts_Seasoning(seasoning_name, familyID, list_name)
-VALUES (("Sesame oil", 4, "lunches for the week"),
-	   ("Ketchup", 4, "Thanksgiving dinner"),
-	   ("Basil", 4, "Thanksgiving dinner"),
-	   ("Hoisin sauce", 4, "Thanksgiving dinner"),
-	   ("Basil", 4, "lunches for the week"));
+VALUES      ('Betty', 4, 'Tomato');
+INSERT INTO Allergic_To(person_name, familyID, food_name)
+VALUES	   ('Shawn', 4, 'Tomato');
+INSERT INTO Allergic_To(person_name, familyID, food_name)
+VALUES	   ('Rose', 4, 'Tomato');
+INSERT INTO Allergic_To(person_name, familyID, food_name)
+VALUES	   ('Jack', 4, 'Salmon');
+INSERT INTO Allergic_To(person_name, familyID, food_name)
+VALUES	   ('Shawn', 4, 'Salmon');
 
 INSERT INTO Purchases_Food(purchaseDate, food_name, familyID, storeID)
-VALUES ((2020-10-13, "Tomato", 4, 1),
-	   (2020-10-13, "Beef brisket", 4, 1),
-	   (2020-10-13, "Potato", 4, 3),
-	   (2020-10-20, "Rice", 4, 2),
-	   (2020-10-21, "Salmon", 4, 5));
+VALUES      ('2020-10-13', 'Tomato', 4, 1);
+INSERT INTO Purchases_Food(purchaseDate, food_name, familyID, storeID)
+VALUES	   ('2020-10-13', 'Beef brisket', 4, 1);
+INSERT INTO Purchases_Food(purchaseDate, food_name, familyID, storeID)
+VALUES	   ('2020-10-13', 'Potato', 4, 3);
+INSERT INTO Purchases_Food(purchaseDate, food_name, familyID, storeID)
+VALUES	   ('2020-10-20', 'Rice', 4, 2);
+INSERT INTO Purchases_Food(purchaseDate, food_name, familyID, storeID)
+VALUES	   ('2020-10-21', 'Salmon', 4, 5);
 
-INSERT INTO Purchases_Seasoning(purchaseDate, food_name, familyID, storeID)
-VALUES ((2020-10-13, "Ketchup", 4, 1),
-	   (2020-10-20, "Sesame oil", 4, 2),
-	   (2020-10-20, "Hoisin sauce", 4, 2),
-	   (2020-10-13, "Basil", 4, 3),
-	   (2020-10-13, "Peppercorn", 4, 3));
+INSERT INTO Purchases_Seasoning(purchaseDate, seasoning_name, familyID, storeID)
+VALUES      ('2020-10-13', 'Ketchup', 4, 1);
+INSERT INTO Purchases_Seasoning(purchaseDate, seasoning_name, familyID, storeID)
+VALUES 	   ('2020-10-20', 'Sesame oil', 4, 2);
+INSERT INTO Purchases_Seasoning(purchaseDate, seasoning_name, familyID, storeID)
+VALUES 	   ('2020-10-20', 'Hoisin sauce', 4, 2);
+INSERT INTO Purchases_Seasoning(purchaseDate, seasoning_name, familyID, storeID)
+VALUES 	   ('2020-10-13', 'Basil', 4, 3);
+INSERT INTO Purchases_Seasoning(purchaseDate, seasoning_name, familyID, storeID)
+VALUES 	   ('2020-10-13', 'Peppercorn', 4, 3);
 
 
 
