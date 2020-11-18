@@ -18,13 +18,14 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         databaseHandler = new DatabaseHandler();
         databaseHandler.login();
         window = primaryStage;
         window.setTitle("GUAVA");
         window.getIcons().add(new Image("file:src/ui/cssFiles/icons/guava.png"));
         homeScene();
+        databaseHandler.createTable();
     }
 
     @Override
@@ -47,4 +48,5 @@ public class App extends Application {
             System.out.println(e.getMessage());
         }
     }
+
 }
