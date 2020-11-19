@@ -25,10 +25,26 @@ public class FamilyPageController extends SceneController{
     @FXML
     private Button familyButton;
 
+    @FXML
+    private Button nonPickyEaterButton;
+
+    @FXML
+    private Button pickyEaterButton;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
+    }
+
+    @FXML
+    public void nonPickyEaterButtonPressed(ActionEvent event) {
+        System.out.println("non picky");
+    }
+
+    @FXML
+    public void pickyEaterButtonPressed(ActionEvent event) {
+        System.out.println("picky");
     }
 
     @FXML

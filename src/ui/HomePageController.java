@@ -46,6 +46,9 @@ public class HomePageController extends SceneController {
     @FXML
     private Button foodInfoButton;
 
+    @FXML
+    private Button foodCountButton;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
@@ -91,6 +94,11 @@ public class HomePageController extends SceneController {
     public void foodInfoButtonPressed(ActionEvent event) {
         System.out.println("info");
         switchToQueryInputScene("home", "info", event, databaseHandler);
+    }
+
+    @FXML
+    public void foodCountButtonPressed(ActionEvent event) {
+        System.out.println("food count");
     }
 
     @FXML
