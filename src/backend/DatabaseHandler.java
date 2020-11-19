@@ -2,13 +2,14 @@ package backend;
 
 import model.Hi;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class DatabaseHandler {
     private static final String ORACLE_URL = "jdbc:oracle:thin:@localhost:1522:stu";
-    private static final String ORACLE_USERNAME = "ora_sungminl";
-    private static final String ORACLE_PASSWORD = "a60657350";
     private static final String EXCEPTION_TAG = "[EXCEPTION]";
     private static final String WARNING_TAG = "[WARNING]";
 
@@ -27,7 +28,10 @@ public class DatabaseHandler {
             if (connection != null) {
                 connection.close();
             }
-            connection = DriverManager.getConnection(ORACLE_URL, ORACLE_USERNAME, ORACLE_PASSWORD);
+            String loginInfo = readInfo();
+            String username = loginInfo.split(";")[0];
+            String password = loginInfo.split(";")[1];
+            connection = DriverManager.getConnection(ORACLE_URL, username, password);
             connection.setAutoCommit(false);
 
             System.out.println("connected to oracle");
@@ -47,6 +51,21 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private String readInfo() {
+        String info = "";
+        try {
+            File file = new File("src/account/account.txt");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                info = scanner.nextLine();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return info;
     }
 
     public void deleteHi(int id) {
