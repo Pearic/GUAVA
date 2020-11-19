@@ -25,10 +25,46 @@ public class RecipesPageController extends SceneController {
     @FXML
     private Button familyButton;
 
+    @FXML
+    private Button recipeFindFoodButton;
+
+    @FXML
+    private Button recipeFindSeasoningButton;
+
+    @FXML
+    private Button updateRecipeButton;
+
+    @FXML
+    private Button caloriesLessThanButton;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
+    }
+
+    @FXML
+    public void recipeFindFoodButtonPressed(ActionEvent event) {
+        System.out.println("recipe find food");
+        switchToQueryInputScene("recipes", "recipe find food", event, databaseHandler);
+    }
+
+    @FXML
+    public void recipeFindSeasoningButtonPressed(ActionEvent event) {
+        System.out.println("recipe find seasoning");
+        switchToQueryInputScene("recipes", "recipe find seasoning", event, databaseHandler);
+    }
+
+    @FXML
+    public void updateRecipeButtonPressed(ActionEvent event) {
+        System.out.println("update recipe");
+        switchToQueryInputScene("recipes", "update recipe", event, databaseHandler);
+    }
+
+    @FXML
+    public void caloriesLessThanButtonPressed(ActionEvent event) {
+        System.out.println("calories less than");
+        switchToQueryInputScene("recipes", "calories less than", event, databaseHandler);
     }
 
     @FXML

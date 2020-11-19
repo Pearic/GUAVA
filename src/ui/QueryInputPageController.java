@@ -55,10 +55,26 @@ public class QueryInputPageController {
                 break;
             case "expiring":
                 this.primaryLabel.setText("Enter the expiry date of the foods you wish to find:");
-                this.secondaryLabel.setText("hint for date format");
+                this.secondaryLabel.setText("Enter date like: YYYY-MM-DD");
                 break;
             case "info":
                 this.primaryLabel.setText("Enter the name of the food you wish to find more information about:");
+                this.secondaryLabel.setText("");
+                break;
+            case "recipe find food":
+                this.primaryLabel.setText("Enter the name of the food you wish to find in recipes:");
+                this.secondaryLabel.setText("");
+                break;
+            case "recipe find seasoning":
+                this.primaryLabel.setText("Enter the name of the seasoning you wish to find in recipes:");
+                this.secondaryLabel.setText("");
+                break;
+            case "update recipe":
+                this.primaryLabel.setText("Enter the name of the recipe and ingredients you wish to update:");
+                this.secondaryLabel.setText("recipe_name,seasoning_name,food_name");
+                break;
+            case "calories less than":
+                this.primaryLabel.setText("Enter the maximum amount of calories in a recipe:");
                 this.secondaryLabel.setText("");
                 break;
             default:

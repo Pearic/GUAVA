@@ -2,6 +2,10 @@
     -fx-background-color: rgba(255, 255, 255, 1);
 }
 
+.button {
+    -fx-background-color: none;
+}
+
 .button:selected {
     -fx-background-color: none;
 }
@@ -10,6 +14,11 @@
     -fx-background-color: none;
 }
 
+.button:hover {
+    -fx-background-color: none;
+    -fx-text-fill: black;
+    -fx-underline: true;
+}
 
 #homeButton {
     -fx-border: none;

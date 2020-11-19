@@ -24,9 +24,10 @@ DROP TABLE Dislikes CASCADE constraints;
 DROP TABLE Allergic_To CASCADE constraints;
 DROP TABLE Purchases_Food CASCADE constraints;
 DROP TABLE Purchases_Seasoning CASCADE constraints;
+DROP TABLE Recipe_Contains CASCADE constraints;
 
 CREATE TABLE FoodType (
-	Food_Name		    char(20),
+	Food_Name		char(20),
 	Calories	    integer,
 	Fat		        integer,
 	Sodium	        integer,
@@ -46,7 +47,7 @@ CREATE TABLE Meats (
 );
 
 CREATE TABLE Produce (
-	Food_Name 		char(20),
+	Food_Name 	char(20),
 	partOfPlant	char(20),
 	isRipe		integer,
 	PRIMARY KEY	(Food_Name),
@@ -54,7 +55,7 @@ CREATE TABLE Produce (
 );
 
 CREATE TABLE Grains (
-	Food_Name 		char(20),
+	Food_Name   char(20),
 	isPackaged	integer,
 	isCooked	integer,
 	PRIMARY KEY	(Food_Name),
@@ -62,10 +63,10 @@ CREATE TABLE Grains (
 );
 
 CREATE TABLE Beverage (
-	Food_Name 		char(20),
+	Food_Name 	char(20),
 	flavour		char(20),
-	isCarbonated	integer,
-	contentSize		integer,
+	isCarbonated integer,
+	contentSize	integer,
 	brand		char(20),
 	PRIMARY KEY	(Food_Name),
 	FOREIGN KEY	(Food_Name) References FoodType
@@ -75,7 +76,7 @@ CREATE TABLE StorageOption (
 	storageID	integer,
 	Type		char(20),
 	Temperature	float,
-	PRIMARY KEY 	(storageID)
+	PRIMARY KEY (storageID)
 );
 
 CREATE TABLE TypeCapacity (
@@ -90,7 +91,7 @@ CREATE TABLE GroceryStore (
 	phone		integer,
 	city		char(20),
 	address	    char(50),
-	PRIMARY KEY 	(storeID)
+	PRIMARY KEY (storeID)
 );
 
 CREATE TABLE AreaCode (
@@ -245,6 +246,16 @@ CREATE TABLE Purchases_Seasoning (
 	FOREIGN KEY	(familyID) REFERENCES Family,
 	FOREIGN KEY	(storeID) REFERENCES GroceryStore,
     FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType
+);
+
+CREATE TABLE Recipe_Contains (
+    recipe_name     char(50),
+    seasoning_name  char(20),
+    Food_Name       char(20),
+    PRIMARY KEY (recipe_name, seasoning_name, Food_Name),
+    FOREIGN KEY (recipe_name) REFERENCES Recipe,
+    FOREIGN KEY (seasoning_name) REFERENCES SeasoningType,
+    FOREIGN KEY (Food_Name) REFERENCES FoodType
 );
 
 INSERT INTO FoodType VALUES ('Tomato', 132, 6, 500, 17, 3, 50, '2020-10-13', '2020-10-24');
@@ -431,7 +442,11 @@ INSERT INTO Purchases_Seasoning  VALUES ('2020-10-20', 'Hoisin sauce', 4, 2);
 INSERT INTO Purchases_Seasoning  VALUES ('2020-10-13', 'Basil', 4, 3);
 INSERT INTO Purchases_Seasoning  VALUES ('2020-10-13', 'Peppercorn', 4, 3);
 
-
+INSERT INTO Recipe_Contains VALUES ('Lasagna', 'Basil', 'Noodles');
+INSERT INTO Recipe_Contains VALUES ('Pepperoni pizza', 'Ketchup', 'Tomato');
+INSERT INTO Recipe_Contains VALUES ('Fried rice', 'Hot sauce', 'Rice');
+INSERT INTO Recipe_Contains VALUES ('Beef stew', 'Basil', 'Beef brisket');
+INSERT INTO Recipe_Contains VALUES ('Fried noodles', 'Hoisin sauce', 'Noodles');
 
 
 

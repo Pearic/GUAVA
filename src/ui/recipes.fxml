@@ -29,5 +29,25 @@
                 <Font size="64.0" />
             </font>
         </Label>
+      <Button fx:id="recipeFindFoodButton" layoutX="30.0" layoutY="100.0" mnemonicParsing="false" onAction="#recipeFindFoodButtonPressed" text="Find recipe containing a particular food">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="recipeFindSeasoningButton" layoutX="30.0" layoutY="150.0" mnemonicParsing="false" onAction="#recipeFindSeasoningButtonPressed" text="Find recipe containing a particular seasoning">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="updateRecipeButton" layoutX="30.0" layoutY="200.0" mnemonicParsing="false" onAction="#updateRecipeButtonPressed" text="Update the food required for a recipe">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="caloriesLessThanButton" layoutX="30.0" layoutY="250.0" mnemonicParsing="false" onAction="#caloriesLessThanButtonPressed" text="Find the recipes that have less calories than">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
