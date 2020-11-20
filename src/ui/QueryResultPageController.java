@@ -28,7 +28,7 @@ public class QueryResultPageController {
     public void init(DatabaseHandler databaseHandler, String queryResult) {
         this.databaseHandler = databaseHandler;
         this.queryResult = queryResult;
-        System.out.println("result page");
+        // System.out.println("result page");
     }
 
     @FXML

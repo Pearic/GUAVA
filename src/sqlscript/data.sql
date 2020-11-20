@@ -164,7 +164,7 @@ CREATE TABLE Herbs (
 CREATE TABLE Food_Stored_In (
 	Food_Name		char(20),
 	storageID	integer NOT NULL,
-	PRIMARY KEY	(Food_Name),
+	PRIMARY KEY	(Food_Name, storageID),
 	FOREIGN KEY 	(Food_Name) REFERENCES FoodType,
 	FOREIGN KEY	(storageID) REFERENCES StorageOption
 );
@@ -172,7 +172,7 @@ CREATE TABLE Food_Stored_In (
 CREATE TABLE Seasoning_Stored_In (
 	seasoning_name		char(20),
 	storageID	integer NOT NULL,
-	PRIMARY KEY	(seasoning_name),
+	PRIMARY KEY	(seasoning_name, storageID),
 	FOREIGN KEY	(seasoning_name) REFERENCES SeasoningType,
 	FOREIGN KEY	(storageID) REFERENCES StorageOption
 );

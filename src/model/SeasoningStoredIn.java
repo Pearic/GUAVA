@@ -9,7 +9,7 @@ public class SeasoningStoredIn {
         this.storageID = storageID;
     }
 
-    public String getFoodName() {
+    public String getSeasoningName() {
         return seasoningName;
     }
 
