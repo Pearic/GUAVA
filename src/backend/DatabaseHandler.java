@@ -1,6 +1,8 @@
 package backend;
 
-import model.Hi;
+import model.FoodStoredIn;
+import model.SeasoningStoredIn;
+import model.StoredIn;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,6 +55,129 @@ public class DatabaseHandler {
         }
     }
 
+    public StoredIn[] getStoredInInfo(int storageID) {
+        ArrayList<StoredIn> result = new ArrayList<StoredIn>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Food_Stored_In WHERE storageID = " + storageID );
+            while(rs.next()) {
+                StoredIn model = new StoredIn(rs.getInt("storageID"), rs.getString("Food_Name"),
+                        "");
+                result.add(model);
+            }
+            rs = stmt.executeQuery("SELECT * FROM Seasoning_Stored_In WHERE storageID = " + storageID );
+            while(rs.next()) {
+                StoredIn model = new StoredIn(rs.getInt("storageID"), "",
+                        rs.getString("seasoning_name"));
+                result.add(model);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new StoredIn[result.size()]);
+    }
+
+    public void showStoredIn(int storageID) {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        StoredIn[] storedIns = getStoredInInfo(storageID);
+        for (int i = 0; i < storedIns.length; i++) {
+            StoredIn model = storedIns[i];
+            if (!toPrint.contains(model.getFoodName()) && model.getFoodName() != "") {
+                toPrint.add(model.getFoodName());
+            }
+            if (!toPrint.contains(model.getSeasoningName()) && model.getSeasoningName() != "") {
+                toPrint.add(model.getSeasoningName());
+            }
+        }
+        if (toPrint.size() == 0) {
+            System.out.println("StorageID: "  + storageID + " is empty!");
+        } else {
+            System.out.println("StorageID: " + storageID + " has the following items:");
+            for (int i = 0; i < toPrint.size(); i++) {
+                System.out.println(toPrint.get(i));
+            }
+        }
+        System.out.println();
+    }
+
+    public void insertFoodToStorage(FoodStoredIn model) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Food_Stored_In VALUES (?,?)");
+            ps.setString(1, model.getFoodName());
+            ps.setInt(2, model.getStorageID());
+
+            ps.executeUpdate();
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+        System.out.println("Successfully added " + model.getFoodName() + " to StorageID: " + model.getStorageID());
+        System.out.println();
+    }
+
+    public void insertSeasoningToStorage(SeasoningStoredIn model) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Seasoning_Stored_In VALUES (?,?)");
+            ps.setString(1, model.getSeasoningName());
+            ps.setInt(2, model.getStorageID());
+
+            ps.executeUpdate();
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+        System.out.println("Successfully added " + model.getSeasoningName() + " to StorageID: " + model.getStorageID());
+        System.out.println();
+    }
+
+    public void removeFoodFromStorage(FoodStoredIn model) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM Food_Stored_In WHERE Food_Name = '" + model.getFoodName() + "' AND storageID = " + model.getStorageID());
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Food_Stored_In Food_Name: " + model.getFoodName() + " storageID: " + model.getStorageID() + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+        System.out.println("Successfully removed " + model.getFoodName() + " from StorageID: " + model.getStorageID());
+        System.out.println();
+    }
+
+    public void removeSeasoningFromStorage(SeasoningStoredIn model) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM Seasoning_Stored_In WHERE seasoning_name = '" + model.getSeasoningName() + "' AND storageID = " + model.getStorageID());
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Seasoning_Stored_In seasoning_name: " + model.getSeasoningName() + " storageID: " + model.getStorageID() + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+        System.out.println("Successfully removed " + model.getSeasoningName() + " from StorageID: " + model.getStorageID());
+        System.out.println();
+    }
+
     private String readInfo() {
         String info = "";
         try {
@@ -87,81 +212,7 @@ public class DatabaseHandler {
         }
     }
 
-    public void createTable() throws Exception {
-        dropTableIfExists();
-        try {
-            PreparedStatement ps = connection.prepareStatement("CREATE TABLE hi (id int PRIMARY KEY, first varchar(20), last varchar(20))");
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            System.out.println("CreateTable Complete!");
 
-            Hi hi1 = new Hi(1, "Charlie", "Li");
-            insertHi(hi1);
-            Hi hi2 = new Hi(2, "Sean", "Lee");
-            insertHi(hi2);
-            showHi();
-            deleteHi(1);
-            showHi();
-            updateTable(2, "Charlie");
-            showHi();
-        }
-    }
-
-    public Hi[] getHiInfo() {
-        ArrayList<Hi> result = new ArrayList<Hi>();
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM hi");
-
-            while(rs.next()) {
-                Hi model = new Hi(rs.getInt("id"),
-                        rs.getString("first"),
-                        rs.getString("last"));
-                result.add(model);
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-
-        return result.toArray(new Hi[result.size()]);
-    }
-
-    public void showHi() {
-        Hi[] his = getHiInfo();
-
-        for (int i = 0; i < his.length; i++) {
-            Hi model = his[i];
-
-            // simplified output formatting; truncation may occur
-            System.out.printf("%-10.10s", model.getId());
-            System.out.printf("%-20.20s", model.getFirst());
-            System.out.printf("%-20.20s", model.getLast());
-            System.out.println();
-        }
-    }
-
-    public void insertHi(Hi model) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO hi VALUES (?,?,?)");
-            ps.setInt(1, model.getId());
-            ps.setString(2, model.getFirst());
-            ps.setString(3, model.getLast());
-
-            ps.executeUpdate();
-            connection.commit();
-
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            rollbackConnection();
-        }
-    }
 
     public void updateTable(int id, String name) {
         try {

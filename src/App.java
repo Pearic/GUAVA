@@ -25,7 +25,7 @@ public class App extends Application {
         window.setTitle("GUAVA");
         window.getIcons().add(new Image("file:src/ui/cssFiles/icons/bigguava.png"));
         loadingScene();
-        databaseHandler.createTable();
+        // databaseHandler.createTable();
     }
 
     @Override
