@@ -28,6 +28,9 @@ public class QueryInputPageController {
     @FXML
     private TextField inputField;
 
+    @FXML
+    private Button queryImage;
+
     private DatabaseHandler databaseHandler;
     private String previousPage;
     private String query;

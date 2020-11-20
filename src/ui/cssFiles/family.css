@@ -1,5 +1,5 @@
 #background {
-    -fx-background-color: rgba(255, 255, 255, 1);
+    -fx-background-color: rgb(255, 234, 245);
 }
 .button {
     -fx-background-color: none;
@@ -19,6 +19,13 @@
     -fx-underline: true;
 }
 
+#iconContainer {
+    -fx-border: none;
+    -fx-background-image: url('icons/bigfamily.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 300px;
+}
 
 #homeButton {
     -fx-border: none;
