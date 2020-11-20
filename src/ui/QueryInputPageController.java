@@ -40,6 +40,10 @@ public class QueryInputPageController {
         this.previousPage = previousPage;
         this.query = query;
         switch (this.query) {
+            case "view":
+                this.primaryLabel.setText("Enter the ID of the storage you want to view:");
+                this.secondaryLabel.setText("");
+                break;
             case "add food":
                 this.primaryLabel.setText("Enter the information of the food with the following format:");
                 this.secondaryLabel.setText("Name,Calories,Fat,Sodium,Carbohydrate,Protein,Vitamin,datePurchased,expiryDate");

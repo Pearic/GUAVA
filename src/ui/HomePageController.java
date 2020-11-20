@@ -64,6 +64,7 @@ public class HomePageController extends SceneController {
     @FXML
     public void viewStorageButtonPressed(ActionEvent event) {
         System.out.println("view");
+        switchToQueryInputScene("home", "view", event, databaseHandler);
     }
 
     @FXML
