@@ -49,10 +49,16 @@ public class HomePageController extends SceneController {
     @FXML
     private Button foodCountButton;
 
+    @FXML
+    private Button iconContainer;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
+        this.homeLabel.setUnderline(true);
+        this.recipesLabel.setUnderline(false);
+        this.familyLabel.setUnderline(false);
     }
 
     @FXML

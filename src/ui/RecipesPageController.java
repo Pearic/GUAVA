@@ -37,10 +37,16 @@ public class RecipesPageController extends SceneController {
     @FXML
     private Button caloriesLessThanButton;
 
+    @FXML
+    private Button iconContainer;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
+        this.homeLabel.setUnderline(false);
+        this.recipesLabel.setUnderline(true);
+        this.familyLabel.setUnderline(false);
     }
 
     @FXML

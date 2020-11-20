@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="background" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RecipesPageController">
+<AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RecipesPageController">
     <children>
         <Label fx:id="homeLabel" layoutX="72.0" layoutY="766.0" prefHeight="20.0" prefWidth="40.0" text="Home" textAlignment="CENTER">
             <font>
@@ -49,5 +49,6 @@
             <Font size="16.0" />
          </font>
       </Button>
+      <Button fx:id="iconContainer" layoutX="235.0" layoutY="400.0" mnemonicParsing="false" prefHeight="300.0" prefWidth="300.0" />
     </children>
 </AnchorPane>

@@ -31,10 +31,16 @@ public class FamilyPageController extends SceneController{
     @FXML
     private Button pickyEaterButton;
 
+    @FXML
+    private Button iconContainer;
+
     private DatabaseHandler databaseHandler;
 
     public void init(DatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
+        this.homeLabel.setUnderline(false);
+        this.recipesLabel.setUnderline(false);
+        this.familyLabel.setUnderline(true);
     }
 
     @FXML

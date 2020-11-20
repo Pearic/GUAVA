@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ui.HomePageController;
+import ui.LoadingScreenController;
 
 public class App extends Application {
 
@@ -23,8 +23,8 @@ public class App extends Application {
         databaseHandler.login();
         window = primaryStage;
         window.setTitle("GUAVA");
-        window.getIcons().add(new Image("file:src/ui/cssFiles/icons/guava.png"));
-        homeScene();
+        window.getIcons().add(new Image("file:src/ui/cssFiles/icons/bigguava.png"));
+        loadingScene();
         databaseHandler.createTable();
     }
 
@@ -33,15 +33,15 @@ public class App extends Application {
         databaseHandler.close();
     }
 
-    private void homeScene() {
+    private void loadingScene() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("ui/home.fxml"));
+            loader.setLocation(getClass().getResource("ui/loading.fxml"));
             Parent root = loader.load();
-            HomePageController controller = loader.getController();
+            LoadingScreenController controller = loader.getController();
             controller.init(databaseHandler);
             home = new Scene(root);
-            home.getStylesheets().add(getClass().getResource("ui/cssFiles/home.css").toExternalForm());
+            home.getStylesheets().add(getClass().getResource("ui/cssFiles/loading.css").toExternalForm());
             window.setScene(home);
             window.show();
         } catch (Exception e) {

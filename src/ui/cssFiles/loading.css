@@ -1,0 +1,37 @@
+#background {
+    -fx-background-color: rgb(255, 234, 245);
+}
+.button {
+    -fx-background-color: none;
+}
+
+.button:selected {
+    -fx-background-color: none;
+}
+
+.button:focused {
+    -fx-background-color: none;
+}
+
+.button:hover {
+    -fx-background-color: none;
+    -fx-text-fill: black;
+    -fx-underline: true;
+}
+
+
+#guavaLogo {
+    -fx-border: none;
+    -fx-background-image: url('icons/bigguava.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 400px;
+}
+
+#otherGuava {
+     -fx-border: none;
+     -fx-background-image: url('icons/cutguava.png');
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center;
+     -fx-background-size: 250px;
+ }
