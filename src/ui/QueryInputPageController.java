@@ -65,8 +65,8 @@ public class QueryInputPageController {
                 this.secondaryLabel.setText("Enter date like: YYYY-MM-DD");
                 break;
             case "info":
-                this.primaryLabel.setText("Enter the name of the food you wish to find more information about:");
-                this.secondaryLabel.setText("");
+                this.primaryLabel.setText("Enter up to three attributes to get more information about all the food:");
+                this.secondaryLabel.setText("Name,Calories,Fat,Sodium,Carbohydrate,Protein,Vitamin,datePurchased,expiryDate");
                 break;
             case "recipe find food":
                 this.primaryLabel.setText("Enter the name of the food you wish to find in recipes:");

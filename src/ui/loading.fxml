@@ -7,6 +7,7 @@
 
 <AnchorPane fx:id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.LoadingScreenController">
     <children>
+      <Button fx:id="backgroundButton" mnemonicParsing="false" onAction="#clicked" prefHeight="800.0" prefWidth="400.0" />
         <Label fx:id="mainLabel" layoutX="27.0" layoutY="117.0" prefHeight="27.0" prefWidth="164.0" text="Welcome to" wrapText="true">
             <font>
                 <Font size="24.0" />
@@ -16,7 +17,7 @@
                 <Font size="48.0" />
             </font>
         </Label>
-        <Label fx:id="subLabel" layoutX="118.0" layoutY="731.0" prefHeight="20.0" prefWidth="164.0" text="Click anywhere to conitue" textAlignment="CENTER">
+        <Label fx:id="subLabel" layoutX="114.0" layoutY="730.0" prefHeight="20.0" prefWidth="172.0" text="Click anywhere to continue" textAlignment="CENTER">
             <font>
                 <Font size="14.0" />
             </font>
@@ -28,6 +29,5 @@
         </Label>
       <Button fx:id="guavaLogo" layoutX="-153.0" layoutY="357.0" mnemonicParsing="false" prefHeight="400.0" prefWidth="400.0" />
       <Button fx:id="otherGuava" layoutX="247.0" layoutY="152.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="254.0" />
-      <Button fx:id="backgroundButton" mnemonicParsing="false" onAction="#clicked" prefHeight="800.0" prefWidth="400.0" />
     </children>
 </AnchorPane>

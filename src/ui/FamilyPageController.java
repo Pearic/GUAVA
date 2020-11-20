@@ -32,6 +32,9 @@ public class FamilyPageController extends SceneController{
     private Button pickyEaterButton;
 
     @FXML
+    private Button oldestButton;
+
+    @FXML
     private Button iconContainer;
 
     private DatabaseHandler databaseHandler;
@@ -51,6 +54,11 @@ public class FamilyPageController extends SceneController{
     @FXML
     public void pickyEaterButtonPressed(ActionEvent event) {
         System.out.println("picky");
+    }
+
+    @FXML
+    public void oldestButtonPressed(ActionEvent event) {
+        System.out.println("oldest");
     }
 
     @FXML
