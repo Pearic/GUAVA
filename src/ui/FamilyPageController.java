@@ -71,7 +71,10 @@ public class FamilyPageController extends SceneController{
 
     @FXML
     public void oldestButtonPressed(ActionEvent event) {
-        System.out.println("oldest");
+        // System.out.println("oldest");
+        ArrayList<String> result = new ArrayList<>();
+        result = databaseHandler.atLeastThreeAdults();
+        switchToResultPage(event, result);
     }
 
     @FXML
