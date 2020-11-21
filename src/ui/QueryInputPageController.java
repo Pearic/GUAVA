@@ -125,29 +125,29 @@ public class QueryInputPageController {
                 String food_name = input.split(",")[0];
                 int storageIDAddFood = Integer.parseInt(input.split(",")[1]);
                 FoodStoredIn newFood = new FoodStoredIn(food_name, storageIDAddFood);
-                databaseHandler.insertFoodToStorage(newFood);
+                result = databaseHandler.insertFoodToStorage(newFood);
                 break;
             case "add seasoning":
                 String seasoning_name = input.split(",")[0];
                 int storageIDAddSeasoning = Integer.parseInt(input.split(",")[1]);
                 SeasoningStoredIn newSeasoning = new SeasoningStoredIn(seasoning_name, storageIDAddSeasoning);
-                databaseHandler.insertSeasoningToStorage(newSeasoning);
+                result = databaseHandler.insertSeasoningToStorage(newSeasoning);
                 break;
             case "remove food":
                 String food_name_remove = input.split(",")[0];
                 int storageIDRemoveFood = Integer.parseInt(input.split(",")[1]);
                 FoodStoredIn removeFood = new FoodStoredIn(food_name_remove, storageIDRemoveFood);
-                databaseHandler.removeFoodFromStorage(removeFood);
+                result = databaseHandler.removeFoodFromStorage(removeFood);
                 break;
             case "remove seasoning":
                 String seasoning_name_remove = input.split(",")[0];
                 int storageIDRemoveSeasoning = Integer.parseInt(input.split(",")[1]);
                 SeasoningStoredIn removeSeasoning = new SeasoningStoredIn(seasoning_name_remove, storageIDRemoveSeasoning);
-                databaseHandler.removeSeasoningFromStorage(removeSeasoning);
+                result = databaseHandler.removeSeasoningFromStorage(removeSeasoning);
                 break;
             case "expiring":
                 String expirationDate = input;
-                databaseHandler.showFoodOnExpirationDate(expirationDate);
+                result = databaseHandler.showFoodOnExpirationDate(expirationDate);
                 break;
             case "info":
                 String condition1 = input.split(",")[0];
@@ -166,7 +166,7 @@ public class QueryInputPageController {
             case "update recipe":
                 String recipeName = input.split(",")[0];
                 String foodNameUpdate = input.split(",")[1];
-                databaseHandler.updateRecipe(recipeName, foodNameUpdate);
+                result = databaseHandler.updateRecipe(recipeName, foodNameUpdate);
                 break;
             case "calories less than":
                 int calories = Integer.parseInt(input);

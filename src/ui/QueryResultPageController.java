@@ -44,16 +44,24 @@ public class QueryResultPageController {
 
     // referred to https://stackoverflow.com/questions/13332212/javafx-tableview-dynamic-column-and-data-values
     private void display() {
-        if (queryResult.size() == 0) {
-            statusLabel.setText("No result");
+        if (queryResult.size() == 1) {
+            statusLabel.setText(queryResult.get(0));
             resultTable.setVisible(false);
         } else {
             resultTable.setVisible(true);
             String columns = queryResult.get(0);
-            if (!columns.contains(",")) {
-                statusLabel.setText(columns);
-            }
             String[] columnsList = columns.split(",");
+
+//        if (queryResult.size() == 0) {
+//            statusLabel.setText("No result");
+//            resultTable.setVisible(false);
+//        } else {
+//            resultTable.setVisible(true);
+//            String columns = queryResult.get(0);
+//            if (!columns.contains(",")) {
+//                statusLabel.setText(columns);
+//            }
+//            String[] columnsList = columns.split(",");
 
             ObservableList<ObservableList<String>> rowData = FXCollections.observableArrayList();
             for (int i = 1; i < queryResult.size(); i++) {

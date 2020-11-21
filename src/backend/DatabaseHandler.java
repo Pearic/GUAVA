@@ -81,6 +81,7 @@ public class DatabaseHandler {
 
     public ArrayList<String> showStoredIn(int storageID) {
         ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("StorageID " + storageID + " has the following items:");
         StoredIn[] storedIns = getStoredInInfo(storageID);
         for (int i = 0; i < storedIns.length; i++) {
             StoredIn model = storedIns[i];
@@ -91,18 +92,15 @@ public class DatabaseHandler {
                 toPrint.add(model.getSeasoningName());
             }
         }
-        if (toPrint.size() == 0) {
-            System.out.println("StorageID: "  + storageID + " is empty!");
-        } else {
-            System.out.println("StorageID: " + storageID + " has the following items:");
-            for (int i = 0; i < toPrint.size(); i++) {
-                System.out.println(toPrint.get(i));
-            }
+        if (toPrint.size() == 1) {
+            toPrint.clear();
+            toPrint.add("StorageID: "  + storageID + " is empty!");
         }
         return toPrint;
     }
 
-    public void insertFoodToStorage(FoodStoredIn model) {
+    public ArrayList<String> insertFoodToStorage(FoodStoredIn model) {
+        ArrayList<String> toPrint = new ArrayList<String>();
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Food_Stored_In VALUES (?,?)");
             ps.setString(1, model.getFoodName());
@@ -112,15 +110,16 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
-            System.out.println("Successfully added " + model.getFoodName() + " to StorageID: " + model.getStorageID());
-            System.out.println();
+            toPrint.add("Successfully added " + model.getFoodName() + " to StorageID: " + model.getStorageID());
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+        return toPrint;
     }
 
-    public void insertSeasoningToStorage(SeasoningStoredIn model) {
+    public ArrayList<String> insertSeasoningToStorage(SeasoningStoredIn model) {
+        ArrayList<String> toPrint = new ArrayList<String>();
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Seasoning_Stored_In VALUES (?,?)");
             ps.setString(1, model.getSeasoningName());
@@ -130,15 +129,16 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
-            System.out.println("Successfully added " + model.getSeasoningName() + " to StorageID: " + model.getStorageID());
-            System.out.println();
+            toPrint.add("Successfully added " + model.getSeasoningName() + " to StorageID: " + model.getStorageID());
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+        return toPrint;
     }
 
-    public void removeFoodFromStorage(FoodStoredIn model) {
+    public ArrayList<String> removeFoodFromStorage(FoodStoredIn model) {
+        ArrayList<String> toPrint = new ArrayList<String>();
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM Food_Stored_In WHERE Food_Name = '" + model.getFoodName() + "' AND storageID = " + model.getStorageID());
             int rowCount = ps.executeUpdate();
@@ -148,15 +148,16 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
-            System.out.println("Successfully removed " + model.getFoodName() + " from StorageID: " + model.getStorageID());
-            System.out.println();
+            toPrint.add("Successfully removed " + model.getFoodName() + " from StorageID: " + model.getStorageID());
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+        return toPrint;
     }
 
-    public void removeSeasoningFromStorage(SeasoningStoredIn model) {
+    public ArrayList<String> removeSeasoningFromStorage(SeasoningStoredIn model) {
+        ArrayList<String> toPrint = new ArrayList<String>();
         try {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM Seasoning_Stored_In WHERE seasoning_name = '" + model.getSeasoningName() + "' AND storageID = " + model.getStorageID());
             int rowCount = ps.executeUpdate();
@@ -166,12 +167,12 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
-            System.out.println("Successfully removed " + model.getSeasoningName() + " from StorageID: " + model.getStorageID());
-            System.out.println();
+            toPrint.add("Successfully removed " + model.getSeasoningName() + " from StorageID: " + model.getStorageID());
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+        return toPrint;
     }
 
     public FoodType[] findFoodOnExpirationDate(String date) {
@@ -192,8 +193,9 @@ public class DatabaseHandler {
         return result.toArray(new FoodType[result.size()]);
     }
 
-    public void showFoodOnExpirationDate(String date) {
+    public ArrayList<String> showFoodOnExpirationDate(String date) {
         ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("The following food item(s) expire on the date: " + date);
         FoodType[] foodTypes = findFoodOnExpirationDate(date);
         for (int i = 0; i < foodTypes.length; i++) {
             FoodType model = foodTypes[i];
@@ -201,15 +203,11 @@ public class DatabaseHandler {
                 toPrint.add(model.getFoodName());
             }
         }
-        if (toPrint.size() == 0) {
-            System.out.println("No food expires on the date: " + date);
-        } else {
-            System.out.println("The following food items expires on the date of " + date + ":");
-            for (int i = 0; i < toPrint.size(); i++) {
-                System.out.println(toPrint.get(i));
-            }
+        if (toPrint.size() == 1) {
+            toPrint.clear();
+            toPrint.add("No food expires on the date: " + date);
         }
-        System.out.println();
+        return toPrint;
     }
 
     public FoodType[] findNutritionalValueOfFood(String condition1, String condition2, String condition3) {
@@ -312,15 +310,6 @@ public class DatabaseHandler {
             }
             toPrint.add(add);
         }
-        if (toPrint.size() == 0) {
-            System.out.println("You don't own any food!");
-        } else {
-            System.out.println("Information of food items:");
-            for (int i = 0; i < toPrint.size(); i++) {
-                System.out.println(toPrint.get(i));
-            }
-        }
-        System.out.println();
         return(toPrint);
     }
 
@@ -344,15 +333,12 @@ public class DatabaseHandler {
 
     public ArrayList<String> showCountOfFoodInStorage() {
         ArrayList<String> toPrint = new ArrayList<String>();
-        toPrint.add("storageID | Count of Food");
+        toPrint.add("storageID, Count of Food");
         CountFoodStorage[] countFoodStorages = getCountOfFoodInStorage();
         for (int i = 0; i < countFoodStorages.length; i++) {
             CountFoodStorage model = countFoodStorages[i];
-            String add = model.getStorageID() + ": " + model.getCount();
+            String add = model.getStorageID() + ", " + model.getCount();
             toPrint.add(add);
-        }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
         }
         return toPrint;
     }
@@ -384,8 +370,9 @@ public class DatabaseHandler {
             String add = model.getRecipeName();
             toPrint.add(add);
         }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
+        if (toPrint.size() == 1) {
+            toPrint.clear();
+            toPrint.add("There are no recipes which contain " + foodName);
         }
         return toPrint;
     }
@@ -417,19 +404,23 @@ public class DatabaseHandler {
             String add = model.getRecipeName();
             toPrint.add(add);
         }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
+        if (toPrint.size() == 1) {
+            toPrint.clear();
+            toPrint.add("There are no recipes which contain " + seasoningName);
         }
         return toPrint;
     }
 
-    public void updateRecipe(String recipeName, String foodName) {
+    public ArrayList<String> updateRecipe(String recipeName, String foodName) {
+        ArrayList<String> toPrint = new ArrayList<String>();
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE Recipe_Contains SET Food_Name = '" + foodName + "' WHERE recipe_name = '" + recipeName + "'");
 
             int rowCount = ps.executeUpdate();
             if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Recipe called " + recipeName + " does not exist!");
+                toPrint.add(WARNING_TAG + " Recipe called " + recipeName + " does not exist!");
+            } else {
+                toPrint.add("Successfully Updated Recipe: " + recipeName);
             }
 
             connection.commit();
@@ -439,6 +430,7 @@ public class DatabaseHandler {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
+        return toPrint;
     }
 
     public RecipeNameCalories[] getRecipeWithLessCalories(int calories) {
@@ -468,8 +460,9 @@ public class DatabaseHandler {
             String add = model.getRecipeName();
             toPrint.add(add);
         }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
+        if (toPrint.size() == 1) {
+            toPrint.clear();
+            toPrint.add("There are no recipes which contain less than " + calories + " calories!");
         }
         return toPrint;
     }
@@ -488,9 +481,6 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
-        }
         return toPrint;
     }
 
@@ -507,9 +497,6 @@ public class DatabaseHandler {
             stmt.close();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
         }
         return toPrint;
     }
@@ -528,8 +515,22 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
-        for (int i = 0; i < toPrint.size(); i++) {
-            System.out.println(toPrint.get(i));
+        return toPrint;
+    }
+
+    public ArrayList<String> veryOld() {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("Name, FamilyID, Age");
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT name, familyID, age FROM Person_Belongs_To p WHERE p.age > ALL (SELECT AVG (p2.age) FROM Person_Belongs_To p2 GROUP BY familyID)");
+            while(rs.next()) {
+                toPrint.add(rs.getString("name") + ", " + rs.getInt("familyID") + ", " + rs.getInt("age"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
         }
         return toPrint;
     }
@@ -549,26 +550,6 @@ public class DatabaseHandler {
         return info;
     }
 
-    public void deleteHi(int id) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM hi WHERE id = ?");
-            ps.setInt(1, id);
-
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Hi " + id + " does not exist!");
-            }
-
-            connection.commit();
-
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            rollbackConnection();
-        }
-    }
-
-
     private void rollbackConnection() {
         try  {
             connection.rollback();
@@ -577,22 +558,4 @@ public class DatabaseHandler {
         }
     }
 
-    public void dropTableIfExists() {
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select table_name from user_tables");
-
-            while(rs.next()) {
-                if(rs.getString(1).toLowerCase().equals("hi")) {
-                    stmt.execute("DROP TABLE hi");
-                    break;
-                }
-            }
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-        }
-    }
 }
