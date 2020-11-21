@@ -15,25 +15,63 @@
     -fx-background-color: none;
 }
 
-.list-view {
+.table-view {
+    -fx-text-fill: black;
     -fx-background-color: none;
-    -fx-border-color: black;
 }
 
-.list-view:selected {
+.table-view:top {
+    -fx-background-color: none;
+}
+
+.table-view:focused {
     -fx-background-color: none;
     -fx-highlight-fill: none;
 }
 
-.list-view:focused {
-    -fx-background-color: none;
+.table-view:selected {
     -fx-highlight-fill: none;
+    -fx-background-color: none;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: rgb(189, 255, 159);
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: rgb(189, 255, 159);
+    -fx-text-fill: black;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: black;
+    -fx-border-color: none;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #FFEAF5;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #F3FFDF;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: none;
+}
+
+.table-view .filler {
+    -fx-background-color: none;
 }
 
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
-    -fx-background-color : white;
-    -fx-border-color : white;
+    -fx-background-color : #FFEAF5;
+    -fx-border-color : #FFEAF5;
     -fx-background-radius : 0.0em;
     -fx-border-radius :0.0em;
 }
@@ -70,14 +108,14 @@
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
     -fx-background-color : black;
-    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-insets : 1.0, 0.0, 0.0;
     -fx-background-radius : 0em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
     -fx-background-color : black;
-    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-insets : 1.0, 0.0, 0.0;
     -fx-background-radius : 0em;
 }
 
