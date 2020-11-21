@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import model.FoodStoredIn;
 import model.SeasoningStoredIn;
 
+import java.util.ArrayList;
+
 public class QueryInputPageController {
     @FXML
     private Button backButton;
@@ -113,10 +115,11 @@ public class QueryInputPageController {
     public void doneButtonPressed(ActionEvent event) {
         String input = inputField.getText();
         this.query = query;
+        ArrayList<String> result = new ArrayList<>();
         switch (this.query) {
             case "view":
                 int storageIDView = Integer.parseInt(input);
-                databaseHandler.showStoredIn(storageIDView);
+                result = databaseHandler.showStoredIn(storageIDView);
                 break;
             case "add food":
                 String food_name = input.split(",")[0];
@@ -170,10 +173,10 @@ public class QueryInputPageController {
                 System.out.println("invalid query");
                 break;
         }
-        switchToResultPage(event, "");
+        switchToResultPage(event, result);
     }
 
-    private void switchToResultPage(ActionEvent event, String queryResult) {
+    private void switchToResultPage(ActionEvent event, ArrayList<String> queryResult) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource( "queryResult.fxml"));
