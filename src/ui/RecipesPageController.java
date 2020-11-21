@@ -51,13 +51,13 @@ public class RecipesPageController extends SceneController {
 
     @FXML
     public void recipeFindFoodButtonPressed(ActionEvent event) {
-        System.out.println("recipe find food");
+        // System.out.println("recipe find food");
         switchToQueryInputScene("recipes", "recipe find food", event, databaseHandler);
     }
 
     @FXML
     public void recipeFindSeasoningButtonPressed(ActionEvent event) {
-        System.out.println("recipe find seasoning");
+        // System.out.println("recipe find seasoning");
         switchToQueryInputScene("recipes", "recipe find seasoning", event, databaseHandler);
     }
 

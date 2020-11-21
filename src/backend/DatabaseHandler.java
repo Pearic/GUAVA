@@ -357,6 +357,123 @@ public class DatabaseHandler {
         return toPrint;
     }
 
+    public RecipeContains[] getRecipeWhichContainsFood(String foodName) {
+        ArrayList<RecipeContains> result = new ArrayList<RecipeContains>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT recipe_name FROM Recipe_Contains WHERE Food_Name = '" + foodName + "'");
+            while(rs.next()) {
+                RecipeContains model = new RecipeContains(rs.getString("recipe_name"), "" , "");
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new RecipeContains[result.size()]);
+    }
+
+    public ArrayList<String> showRecipeWhichContainsFood(String foodName) {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("Names of recipes which contain " + foodName + ":");
+        RecipeContains[] recipeContainsFood = getRecipeWhichContainsFood(foodName);
+        for (int i = 0; i < recipeContainsFood.length; i++) {
+            RecipeContains model = recipeContainsFood[i];
+            String add = model.getRecipeName();
+            toPrint.add(add);
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
+    public RecipeContains[] getRecipeWhichContainsSeasoning(String seasoningName) {
+        ArrayList<RecipeContains> result = new ArrayList<RecipeContains>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT recipe_name FROM Recipe_Contains WHERE seasoning_name = '" + seasoningName + "'");
+            while(rs.next()) {
+                RecipeContains model = new RecipeContains(rs.getString("recipe_name"), "" , "");
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new RecipeContains[result.size()]);
+    }
+
+    public ArrayList<String> showRecipeWhichContainsSeasoning(String seasoningName) {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("Names of recipes which contain " + seasoningName + ":");
+        RecipeContains[] recipeContainsFood = getRecipeWhichContainsSeasoning(seasoningName);
+        for (int i = 0; i < recipeContainsFood.length; i++) {
+            RecipeContains model = recipeContainsFood[i];
+            String add = model.getRecipeName();
+            toPrint.add(add);
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
+    public void updateRecipe(String recipeName, String foodName) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE Recipe_Contains SET Food_Name = '" + foodName + "' WHERE recipe_name = '" + recipeName + "'");
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount == 0) {
+                System.out.println(WARNING_TAG + " Recipe called " + recipeName + " does not exist!");
+            }
+
+            connection.commit();
+
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+            rollbackConnection();
+        }
+    }
+
+    public RecipeNameCalories[] getRecipeWithLessCalories(int calories) {
+        ArrayList<RecipeNameCalories> result = new ArrayList<RecipeNameCalories>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT recipe_name FROM Recipe_Contains r, FoodType f WHERE r.Food_Name = f.Food_Name AND f.calories < " + calories);
+            while(rs.next()) {
+                RecipeNameCalories model = new RecipeNameCalories(rs.getString("recipe_name"), calories);
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new RecipeNameCalories[result.size()]);
+    }
+
+    public ArrayList<String> showRecipeWithLessCalories(int calories) {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("Names of recipes which contain less than " + calories + " calories:");
+        RecipeNameCalories[] recipeNameCalories = getRecipeWithLessCalories(calories);
+        for (int i = 0; i < recipeNameCalories.length; i++) {
+            RecipeNameCalories model = recipeNameCalories[i];
+            String add = model.getRecipeName();
+            toPrint.add(add);
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
     private String readInfo() {
         String info = "";
         try {
@@ -391,27 +508,6 @@ public class DatabaseHandler {
         }
     }
 
-
-
-    public void updateTable(int id, String name) {
-        try {
-            PreparedStatement ps = connection.prepareStatement("UPDATE hi SET first = ? WHERE id = ?");
-            ps.setString(1, name);
-            ps.setInt(2, id);
-
-            int rowCount = ps.executeUpdate();
-            if (rowCount == 0) {
-                System.out.println(WARNING_TAG + " Hi " + id + " does not exist!");
-            }
-
-            connection.commit();
-
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
-            rollbackConnection();
-        }
-    }
 
     private void rollbackConnection() {
         try  {
