@@ -1,15 +1,15 @@
 package model;
 
 public class FoodType {
-    private final String foodName;
-    private final int calories;
-    private final int fat;
-    private final int sodium;
-    private final int carbohydrate;
-    private final int protein;
-    private final int vitamin;
-    private final String datePurchased;
-    private final String expiryDate;
+    private String foodName;
+    private int calories;
+    private int fat;
+    private int sodium;
+    private int carbohydrate;
+    private int protein;
+    private int vitamin;
+    private String datePurchased;
+    private String expiryDate;
 
     public FoodType (String foodName, int calories, int fat, int sodium, int carbohydrate, int protein, int vitamin, String datePurchased, String expiryDate) {
         this.foodName = foodName;
@@ -57,5 +57,37 @@ public class FoodType {
 
     public String getExpiryDate() {
         return expiryDate;
+    }
+
+    public void setCalories(int i) {
+        this.calories = i;
+    }
+
+    public void setFat(int i) {
+        this.fat = i;
+    }
+
+    public void setSodium(int i) {
+        this.sodium = i;
+    }
+
+    public void setCarbohydrate(int i) {
+        this.carbohydrate = i;
+    }
+
+    public void setProtein(int i) {
+        this.protein = i;
+    }
+
+    public void setVitamin(int i) {
+        this.vitamin = i;
+    }
+
+    public void setDatePurchased(String s) {
+        this.datePurchased = s;
+    }
+
+    public void setExpiryDate(String s) {
+        this.expiryDate = s;
     }
 }

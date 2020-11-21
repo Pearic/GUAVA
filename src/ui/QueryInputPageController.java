@@ -70,7 +70,7 @@ public class QueryInputPageController {
                 break;
             case "info":
                 this.primaryLabel.setText("Enter three attributes to get more information about all the food:");
-                this.secondaryLabel.setText("Name,Calories,Fat,Sodium,Carbohydrate,Protein,Vitamin,datePurchased,expiryDate");
+                this.secondaryLabel.setText("Calories,Fat,Sodium,Carbohydrate,Protein,Vitamin,datePurchased,expiryDate");
                 break;
             case "recipe find food":
                 this.primaryLabel.setText("Enter the name of the food you wish to find in recipes:");
@@ -150,8 +150,10 @@ public class QueryInputPageController {
                 databaseHandler.showFoodOnExpirationDate(expirationDate);
                 break;
             case "info":
-                this.primaryLabel.setText("Enter the name of the food you wish to find more information about:");
-                this.secondaryLabel.setText("");
+                String condition1 = input.split(",")[0];
+                String condition2 = input.split(",")[1];
+                String condition3 = input.split(",")[2];
+                result = databaseHandler.showNutritionalValueOfFood(condition1, condition2, condition3);
                 break;
             case "recipe find food":
                 this.primaryLabel.setText("Enter the name of the food you wish to find in recipes:");
