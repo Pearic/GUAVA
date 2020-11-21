@@ -99,7 +99,7 @@ public class HomePageController extends SceneController {
 
     @FXML
     public void foodInfoButtonPressed(ActionEvent event) {
-        System.out.println("info");
+        // System.out.println("info");
         switchToQueryInputScene("home", "info", event, databaseHandler);
     }
 
