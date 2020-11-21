@@ -82,7 +82,7 @@ public class DatabaseHandler {
         return result.toArray(new StoredIn[result.size()]);
     }
 
-    public void showStoredIn(int storageID) {
+    public ArrayList<String> showStoredIn(int storageID) {
         ArrayList<String> toPrint = new ArrayList<String>();
         StoredIn[] storedIns = getStoredInInfo(storageID);
         for (int i = 0; i < storedIns.length; i++) {
@@ -102,7 +102,7 @@ public class DatabaseHandler {
                 System.out.println(toPrint.get(i));
             }
         }
-        System.out.println();
+        return toPrint;
     }
 
     public void insertFoodToStorage(FoodStoredIn model) {
