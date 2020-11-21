@@ -52,7 +52,6 @@ public class QueryResultPageController {
             String columns = queryResult.get(0);
             if (!columns.contains(",")) {
                 statusLabel.setText(columns);
-                return;
             }
             String[] columnsList = columns.split(",");
 
