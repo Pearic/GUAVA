@@ -63,13 +63,13 @@ public class RecipesPageController extends SceneController {
 
     @FXML
     public void updateRecipeButtonPressed(ActionEvent event) {
-        System.out.println("update recipe");
+        // System.out.println("update recipe");
         switchToQueryInputScene("recipes", "update recipe", event, databaseHandler);
     }
 
     @FXML
     public void caloriesLessThanButtonPressed(ActionEvent event) {
-        System.out.println("calories less than");
+        // System.out.println("calories less than");
         switchToQueryInputScene("recipes", "calories less than", event, databaseHandler);
     }
 
