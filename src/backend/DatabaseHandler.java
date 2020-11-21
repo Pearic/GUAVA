@@ -474,6 +474,46 @@ public class DatabaseHandler {
         return toPrint;
     }
 
+    public ArrayList<String> peopleWhoLikesAllFood() {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("FamilyID, Name");
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT p.name, p.familyID FROM Person_Belongs_To p WHERE NOT EXISTS (SELECT Food_Name FROM FoodType MINUS SELECT food_name FROM Likes l WHERE l.person_name = p.name AND l.familyID = p.familyID)");
+            while(rs.next()) {
+                toPrint.add(rs.getInt("familyID") + ", " + rs.getString("name"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
+    public ArrayList<String> peopleWhoDislikesAllFood() {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("FamilyID, Name");
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT p.name, p.familyID FROM Person_Belongs_To p WHERE NOT EXISTS (SELECT Food_Name FROM FoodType MINUS SELECT food_name FROM Dislikes d WHERE d.person_name = p.name AND d.familyID = p.familyID)");
+            while(rs.next()) {
+                toPrint.add(rs.getInt("familyID") + ", " + rs.getString("name"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
     private String readInfo() {
         String info = "";
         try {
