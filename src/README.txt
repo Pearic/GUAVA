@@ -1,0 +1,11 @@
+Insert Operation			DONE WITH "Add food to storage"
+Delete Operation			DONE WITH "Remove food from storage"
+Update Operation			DONE WITH "Update the food required for recipe"
+Selection				DONE WITH "Find food expiring on a date"
+Projection				DONE WITH "Find nutritional value of food"
+Join					DONE WITH "Find the recipes that have less calories than"
+Aggregation with Group By		DONE WITH "Find count of food in each storage"
+Aggregation with Having			DONE WITH "familyID of the family who have at least 3 adults"	
+Nested Aggregtion with Group By		DONE WITH "Find the person older than the average age of all families"
+Division				DONE WITH "Find the person who likes every food"
+
