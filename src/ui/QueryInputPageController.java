@@ -81,8 +81,8 @@ public class QueryInputPageController {
                 this.secondaryLabel.setText("");
                 break;
             case "update recipe":
-                this.primaryLabel.setText("Enter the name of the recipe and ingredients you wish to update:");
-                this.secondaryLabel.setText("recipe_name,seasoning_name,food_name");
+                this.primaryLabel.setText("Enter the name of the recipe and the name of the food you would like to change:");
+                this.secondaryLabel.setText("recipe_name,food_name");
                 break;
             case "calories less than":
                 this.primaryLabel.setText("Enter the maximum amount of calories in a recipe:");
@@ -156,20 +156,21 @@ public class QueryInputPageController {
                 result = databaseHandler.showNutritionalValueOfFood(condition1, condition2, condition3);
                 break;
             case "recipe find food":
-                this.primaryLabel.setText("Enter the name of the food you wish to find in recipes:");
-                this.secondaryLabel.setText("");
+                String foodName = input;
+                result = databaseHandler.showRecipeWhichContainsFood(foodName);
                 break;
             case "recipe find seasoning":
-                this.primaryLabel.setText("Enter the name of the seasoning you wish to find in recipes:");
-                this.secondaryLabel.setText("");
+                String seasoningName = input;
+                result = databaseHandler.showRecipeWhichContainsSeasoning(seasoningName);
                 break;
             case "update recipe":
-                this.primaryLabel.setText("Enter the name of the recipe and ingredients you wish to update:");
-                this.secondaryLabel.setText("recipe_name,seasoning_name,food_name");
+                String recipeName = input.split(",")[0];
+                String foodNameUpdate = input.split(",")[1];
+                databaseHandler.updateRecipe(recipeName, foodNameUpdate);
                 break;
             case "calories less than":
-                this.primaryLabel.setText("Enter the maximum amount of calories in a recipe:");
-                this.secondaryLabel.setText("");
+                int calories = Integer.parseInt(input);
+                result = databaseHandler.showRecipeWithLessCalories(calories);
                 break;
             default:
                 System.out.println("invalid query");
