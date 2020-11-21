@@ -52,17 +52,6 @@ public class QueryResultPageController {
             String columns = queryResult.get(0);
             String[] columnsList = columns.split(",");
 
-//        if (queryResult.size() == 0) {
-//            statusLabel.setText("No result");
-//            resultTable.setVisible(false);
-//        } else {
-//            resultTable.setVisible(true);
-//            String columns = queryResult.get(0);
-//            if (!columns.contains(",")) {
-//                statusLabel.setText(columns);
-//            }
-//            String[] columnsList = columns.split(",");
-
             ObservableList<ObservableList<String>> rowData = FXCollections.observableArrayList();
             for (int i = 1; i < queryResult.size(); i++) {
                 ObservableList<String> row = FXCollections.observableArrayList();
