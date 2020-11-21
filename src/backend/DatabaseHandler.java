@@ -1,9 +1,6 @@
 package backend;
 
-import model.FoodStoredIn;
-import model.FoodType;
-import model.SeasoningStoredIn;
-import model.StoredIn;
+import model.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -325,6 +322,39 @@ public class DatabaseHandler {
         }
         System.out.println();
         return(toPrint);
+    }
+
+    public CountFoodStorage[] getCountOfFoodInStorage() {
+        ArrayList<CountFoodStorage> result = new ArrayList<CountFoodStorage>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT storageID, COUNT(*) FROM Food_Stored_In GROUP BY storageID");
+            while(rs.next()) {
+                CountFoodStorage model = new CountFoodStorage(rs.getInt("storageID"), rs.getInt("COUNT(*)"));
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+
+        return result.toArray(new CountFoodStorage[result.size()]);
+    }
+
+    public ArrayList<String> showCountOfFoodInStorage() {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("storageID | Count of Food");
+        CountFoodStorage[] countFoodStorages = getCountOfFoodInStorage();
+        for (int i = 0; i < countFoodStorages.length; i++) {
+            CountFoodStorage model = countFoodStorages[i];
+            String add = model.getStorageID() + ": " + model.getCount();
+            toPrint.add(add);
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
     }
 
     private String readInfo() {
