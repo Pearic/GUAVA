@@ -350,6 +350,11 @@ INSERT INTO Person_Belongs_To VALUES ('Betty', 4, 16, 'female', 'daughter');
 INSERT INTO Person_Belongs_To VALUES ('Jack', 4, 45, 'male', 'father');
 INSERT INTO Person_Belongs_To VALUES ('Rose', 4, 44, 'female', 'mother');
 INSERT INTO Person_Belongs_To VALUES ('Julian', 4, 78, 'male', 'grandfather');
+INSERT INTO Person_Belongs_To VALUES ('Matthew', 3, 20, 'male', 'father');
+INSERT INTO Person_Belongs_To VALUES ('Dylan', 3, 23, 'male', 'father');
+INSERT INTO Person_Belongs_To VALUES ('Susan', 2, 19, 'female', 'daughter');
+INSERT INTO Person_Belongs_To VALUES ('Spongebob', 2, 52, 'male', 'father');
+INSERT INTO Person_Belongs_To VALUES ('Karen', 2, 49, 'female', 'mother');
 
 INSERT INTO SeasoningType VALUES  ('Ketchup', 5.99, '2020-01-20', '2022-01-20');
 INSERT INTO SeasoningType VALUES ('Sesame oil', 3.99, '2019-04-22', '2021-04-21');

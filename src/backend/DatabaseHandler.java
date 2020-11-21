@@ -514,6 +514,26 @@ public class DatabaseHandler {
         return toPrint;
     }
 
+    public ArrayList<String> atLeastThreeAdults() {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        toPrint.add("FamilyID, Number of adults");
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT familyID, COUNT(*) FROM Person_Belongs_To WHERE age > 18 GROUP BY familyID HAVING COUNT(*) > 2");
+            while(rs.next()) {
+                toPrint.add(rs.getInt("familyID") + ", " + rs.getInt("COUNT(*)"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        for (int i = 0; i < toPrint.size(); i++) {
+            System.out.println(toPrint.get(i));
+        }
+        return toPrint;
+    }
+
     private String readInfo() {
         String info = "";
         try {
