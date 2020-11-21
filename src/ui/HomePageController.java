@@ -93,7 +93,7 @@ public class HomePageController extends SceneController {
 
     @FXML
     public void expiringFoodButtonPressed(ActionEvent event) {
-        System.out.println("expiring");
+        // System.out.println("expiring");
         switchToQueryInputScene("home", "expiring", event, databaseHandler);
     }
 

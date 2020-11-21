@@ -143,8 +143,8 @@ public class QueryInputPageController {
                 databaseHandler.removeSeasoningFromStorage(removeSeasoning);
                 break;
             case "expiring":
-                this.primaryLabel.setText("Enter the expiry date of the foods you wish to find:");
-                this.secondaryLabel.setText("Enter date like: YYYY-MM-DD");
+                String expirationDate = input;
+                databaseHandler.showFoodOnExpirationDate(expirationDate);
                 break;
             case "info":
                 this.primaryLabel.setText("Enter the name of the food you wish to find more information about:");

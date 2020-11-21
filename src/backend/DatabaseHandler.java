@@ -1,6 +1,7 @@
 package backend;
 
 import model.FoodStoredIn;
+import model.FoodType;
 import model.SeasoningStoredIn;
 import model.StoredIn;
 
@@ -114,12 +115,12 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
+            System.out.println("Successfully added " + model.getFoodName() + " to StorageID: " + model.getStorageID());
+            System.out.println();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
-        System.out.println("Successfully added " + model.getFoodName() + " to StorageID: " + model.getStorageID());
-        System.out.println();
     }
 
     public void insertSeasoningToStorage(SeasoningStoredIn model) {
@@ -132,12 +133,12 @@ public class DatabaseHandler {
             connection.commit();
 
             ps.close();
+            System.out.println("Successfully added " + model.getSeasoningName() + " to StorageID: " + model.getStorageID());
+            System.out.println();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
-        System.out.println("Successfully added " + model.getSeasoningName() + " to StorageID: " + model.getStorageID());
-        System.out.println();
     }
 
     public void removeFoodFromStorage(FoodStoredIn model) {
@@ -147,16 +148,15 @@ public class DatabaseHandler {
             if (rowCount == 0) {
                 System.out.println(WARNING_TAG + " Food_Stored_In Food_Name: " + model.getFoodName() + " storageID: " + model.getStorageID() + " does not exist!");
             }
-
             connection.commit();
 
             ps.close();
+            System.out.println("Successfully removed " + model.getFoodName() + " from StorageID: " + model.getStorageID());
+            System.out.println();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
-        System.out.println("Successfully removed " + model.getFoodName() + " from StorageID: " + model.getStorageID());
-        System.out.println();
     }
 
     public void removeSeasoningFromStorage(SeasoningStoredIn model) {
@@ -166,16 +166,71 @@ public class DatabaseHandler {
             if (rowCount == 0) {
                 System.out.println(WARNING_TAG + " Seasoning_Stored_In seasoning_name: " + model.getSeasoningName() + " storageID: " + model.getStorageID() + " does not exist!");
             }
-
             connection.commit();
 
             ps.close();
+            System.out.println("Successfully removed " + model.getSeasoningName() + " from StorageID: " + model.getStorageID());
+            System.out.println();
         } catch (SQLException e) {
             System.out.println(EXCEPTION_TAG + " " + e.getMessage());
             rollbackConnection();
         }
-        System.out.println("Successfully removed " + model.getSeasoningName() + " from StorageID: " + model.getStorageID());
+    }
+
+    public FoodType[] findFoodOnExpirationDate(String date) {
+        ArrayList<FoodType> result = new ArrayList<FoodType>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Food_Name FROM FoodType WHERE expiryDate = '" + date + "'");
+            while(rs.next()) {
+                FoodType model = new FoodType(rs.getString("Food_Name"),
+                        0, 0, 0, 0, 0, 0, "", "");
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result.toArray(new FoodType[result.size()]);
+    }
+
+    public void showFoodOnExpirationDate(String date) {
+        ArrayList<String> toPrint = new ArrayList<String>();
+        FoodType[] foodTypes = findFoodOnExpirationDate(date);
+        for (int i = 0; i < foodTypes.length; i++) {
+            FoodType model = foodTypes[i];
+            if (!toPrint.contains(model.getFoodName())) {
+                toPrint.add(model.getFoodName());
+            }
+        }
+        if (toPrint.size() == 0) {
+            System.out.println("No food expires on the date: " + date);
+        } else {
+            System.out.println("The following food items expires on the date of " + date + ":");
+            for (int i = 0; i < toPrint.size(); i++) {
+                System.out.println(toPrint.get(i));
+            }
+        }
         System.out.println();
+    }
+
+    public FoodType[] findNutritionalValueOfFood(String date) {
+        ArrayList<FoodType> result = new ArrayList<FoodType>();
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT Food_Name FROM FoodType WHERE expiryDate = '" + date + "'");
+            while(rs.next()) {
+                FoodType model = new FoodType(rs.getString("Food_Name"),
+                        0, 0, 0, 0, 0, 0, "", "");
+                result.add(model);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(EXCEPTION_TAG + " " + e.getMessage());
+        }
+        return result.toArray(new FoodType[result.size()]);
     }
 
     private String readInfo() {
