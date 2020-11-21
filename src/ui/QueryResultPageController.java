@@ -1,6 +1,7 @@
 package ui;
 
 import backend.DatabaseHandler;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,9 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class QueryResultPageController {
     private Label statusLabel;
 
     @FXML
-    private ListView<String> resultList;
+    private TableView<ObservableList<String>> resultTable;
 
     private DatabaseHandler databaseHandler;
     private ArrayList<String> queryResult;
@@ -43,15 +42,38 @@ public class QueryResultPageController {
         display();
     }
 
+    // referred to https://stackoverflow.com/questions/13332212/javafx-tableview-dynamic-column-and-data-values
     private void display() {
         if (queryResult.size() == 0) {
-            statusLabel.setText("Result size is 0");
-            resultList.setVisible(false);
+            statusLabel.setText("No result");
+            resultTable.setVisible(false);
         } else {
-            ObservableList<String> list = FXCollections.observableArrayList();
-            list.addAll(queryResult);
-            resultList.setItems(list);
-            resultList.setVisible(true);
+            resultTable.setVisible(true);
+            String columns = queryResult.get(0);
+            if (!columns.contains(",")) {
+                statusLabel.setText(columns);
+                return;
+            }
+            String[] columnsList = columns.split(",");
+
+            ObservableList<ObservableList<String>> rowData = FXCollections.observableArrayList();
+            for (int i = 1; i < queryResult.size(); i++) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                String data = queryResult.get(i);
+                String[] split = data.split(",");
+                for (String str: split) {
+                    row.add(str.trim());
+                }
+                rowData.add(row);
+            }
+
+            for (int i = 0; i < columnsList.length; i++) {
+                int index = i;
+                TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(columnsList[i]);
+                tableColumn.setCellValueFactory(row -> new SimpleStringProperty(row.getValue().get(index)));
+                resultTable.getColumns().add(tableColumn);
+            }
+            resultTable.setItems(rowData);
         }
     }
 
